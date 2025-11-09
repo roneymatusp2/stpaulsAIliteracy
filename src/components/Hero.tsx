@@ -1,359 +1,104 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import AnimatedText from './AnimatedText';
 import MorphingButton from './MorphingButton';
-import AnimatedBackground from './AnimatedBackground';
-import ParallaxSection from './ParallaxSection';
 
-interface HeroProps {
-  lang: 'en' | 'pt-br';
-}
-
-const Hero: React.FC<HeroProps> = ({ lang }) => {
+const Hero: React.FC = () => {
   const navigate = useNavigate();
-  const content = {
-    en: {
-      title: 'Generative AI for Teachers',
-      subtitle: 'Empowering educators to harness the transformative power of artificial intelligence in their classrooms.',
-      getBook: 'Get the Book',
-      exploreTools: 'Explore AI Tools',
-      bookUrl: 'https://www.amazon.com/dp/B0FF3L24H6',
-    },
-    'pt-br': {
-      title: 'IA Generativa para Professores',
-      subtitle: 'Capacitando educadores a aproveitar o poder transformador da inteligência artificial em suas salas de aula.',
-      getBook: 'Adquirir o Livro',
-      exploreTools: 'Explorar Ferramentas IA',
-      bookUrl: 'https://www.amazon.com.br/dp/B0FF9NBJNT',
-    },
-  };
 
-  const t = content[lang];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const heroImageVariants = {
-    hidden: { 
-      scale: 0.6, // Começar ainda mais atrás
-      opacity: 0,
-      rotateY: -30,
-      filter: 'blur(10px)'
-    },
-    visible: {
-      scale: 0.75, // Menor ainda para mostrar o nome
-      opacity: 1,
-      rotateY: 0,
-      filter: 'blur(0px)',
-      transition: {
-        duration: 1.2,
-        ease: [0.4, 0, 0.2, 1],
-      },
-    },
-  };
-
-  const featurePillVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 25,
-      },
-    },
-  };
-
-  const handleGetBookClick = () => {
-    window.open(t.bookUrl, '_blank', 'noopener,noreferrer');
-  };
+  const highlights = [
+    { label: 'Staff pathways', value: '12', detail: 'tailored professional learning journeys' },
+    { label: 'Curated tools', value: '80+', detail: 'reviewed for St. Paul’s classrooms' },
+    { label: 'Safeguarding checks', value: '7', detail: 'criteria applied to every recommendation' }
+  ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <AnimatedBackground />
-      
-      {/* Hero Background Image with advanced effects */}
-      <div className="absolute inset-0 z-5">
-        <div className="hidden sm:block absolute inset-0 flex items-center justify-center">
-          <motion.div 
-            className="relative w-full h-full flex items-center justify-center"
-            variants={heroImageVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.img
-              src="https://nyc.cloud.appwrite.io/v1/storage/buckets/68518e5500284ee65814/files/68518ebd0024ac797a36/view?project=680e68b10024125b5c0b&mode=admin"
-              alt="Generative AI for Teachers book cover by Roney Nascimento"
-              className="w-full h-full object-cover object-center"
-              style={{ objectPosition: 'center 25%' }}
-              loading="eager"
-              animate={{
-                scale: [0.75, 0.95, 0.75], // Zoom mais sutil, mais atrás
-                filter: ['blur(0px)', 'blur(0.5px)', 'blur(0px)'],
-              }}
-              transition={{
-                duration: 15, // Ainda mais devagar
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            
-            {/* Gradient overlays with animation */}
-            <motion.div 
-              className="absolute inset-0 bg-black/60"
-              animate={{
-                opacity: [0.6, 0.4, 0.6],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-[#0F4D3F]/20 via-transparent to-[#002D59]/20"
-              animate={{
-                opacity: [0.2, 0.4, 0.2],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-            />
-          </motion.div>
-        </div>
-        
-        {/* Mobile version with enhanced effects */}
-        <div className="block sm:hidden absolute inset-0">
-          <motion.div 
-            className="absolute inset-0 bg-gradient-to-br from-[#0F4D3F] to-[#002D59]"
-            animate={{
-              background: [
-                'linear-gradient(45deg, #0F4D3F, #002D59)',
-                'linear-gradient(135deg, #0F4D3F, #002D59)',
-                'linear-gradient(225deg, #0F4D3F, #002D59)',
-                'linear-gradient(45deg, #0F4D3F, #002D59)',
-              ],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-sps-indigo via-black to-sps-ruby opacity-80" />
+      <div className="absolute inset-0 z-0">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={`hero-star-${i}`}
+            className="absolute w-2 h-2 bg-white/40 rounded-full"
+            style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+            animate={{ opacity: [0.1, 0.7, 0.1], scale: [0.8, 1.2, 0.8] }}
+            transition={{ duration: 5 + i, repeat: Infinity }}
           />
-          <ParallaxSection speed={0.3}>
-            <motion.img
-              src="https://nyc.cloud.appwrite.io/v1/storage/buckets/68518e5500284ee65814/files/68518ebd0024ac797a36/view?project=680e68b10024125b5c0b&mode=admin"
-              alt="Generative AI for Teachers book cover"
-              className="w-64 h-64 object-cover rounded-3xl blur-sm opacity-30 transform mx-auto mt-32"
-              style={{ objectPosition: 'center 25%' }}
-              loading="eager"
-              initial={{ scale: 0.5 }} // Ainda mais atrás no mobile
-              animate={{
-                rotate: [0, 5, -5, 0],
-                scale: [0.5, 0.65, 0.5], // Muito mais atrás no mobile
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </ParallaxSection>
-        </div>
+        ))}
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-8"
-        >
-          {/* CTA Buttons with Advanced Morphing */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
-          >
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="text-white">
+          <p className="text-sm uppercase tracking-[0.5em] text-white/80">St. Paul’s School · São Paulo</p>
+          <h1 className="mt-6 text-4xl md:text-6xl font-heading font-semibold leading-tight">
+            AI Learning Platform
+          </h1>
+          <p className="mt-4 text-lg text-white/80 max-w-2xl">
+            Empowering educators and pupils to use artificial intelligence with discernment, creativity, and care.
+            Every resource here is aligned with MANIBUS POTENTIA STUDIUM ANIMIS – skill in our hands, curiosity in our minds.
+          </p>
+
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <MorphingButton
-              href={t.bookUrl}
               variant="primary"
-              className="text-lg px-10 py-5"
-            >
-              <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              {t.getBook}
-            </MorphingButton>
-            
-            <MorphingButton
+              className="text-lg"
               onClick={() => navigate('/tools')}
-              variant="secondary"
-              className="text-lg px-10 py-5"
             >
-              <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              {t.exploreTools}
+              🤖 Explore AI Tools
             </MorphingButton>
-          </motion.div>
+            <MorphingButton
+              variant="secondary"
+              className="text-lg"
+              onClick={() => navigate('/learn')}
+            >
+              📚 Staff Learning Guides
+            </MorphingButton>
+          </div>
 
-          {/* Small Title at Bottom */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="pt-8"
-          >
-            <AnimatedText
-              text={t.title}
-              className="text-lg md:text-xl font-medium text-green-100/80 text-shadow"
-              variant="fadeInUp"
-              delay={1.0}
+          <div className="mt-10 flex flex-wrap gap-6">
+            <a
+              href="mailto:edtech@stpauls.br"
+              className="text-white/80 hover:text-white transition-colors underline decoration-dotted"
+            >
+              edtech@stpauls.br
+            </a>
+            <Link to="/about" className="text-white/80 hover:text-white transition-colors underline decoration-dotted">
+              About the Educational Technology Department →
+            </Link>
+          </div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 p-10 shadow-2xl text-white">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-white/60">Safeguarded implementation</p>
+              <h3 className="text-2xl font-heading mt-2">St. Paul’s AI Assurance</h3>
+            </div>
+            <img
+              src="https://nyc.cloud.appwrite.io/v1/storage/buckets/68a52c57000dac1b04b3/files/68a52c6800384645c80c/view?project=680e68b10024125b5c0b&mode=admin"
+              alt="St. Paul’s School crest"
+              className="h-14 w-auto"
             />
-          </motion.div>
+          </div>
 
-          {/* Feature Pills with Advanced Animations */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.2,
-                  delayChildren: 1.4,
-                },
-              },
-            }}
-            className="flex flex-wrap justify-center gap-4 pt-8"
-          >
-            {[
-              { icon: '🤖', text: 'AI Tool Directory', href: '/tools' },
-              { icon: '📚', text: 'Expert Courses', href: '/learn' },
-              { icon: '🎯', text: 'Practical Guides', href: '/library' },
-              { icon: '📱', text: 'QR Code Sharing', href: '/videos' }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                variants={featurePillVariants}
-                className="group relative overflow-hidden"
-                whileHover={{ scale: 1.1, y: -5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link to={feature.href}>
-                  <motion.div
-                    className="bg-white/20 backdrop-blur-sm border border-white/30 px-6 py-4 text-white font-medium rounded-2xl text-shadow cursor-pointer hover:bg-white/30 transition-all duration-300"
-                    animate={{
-                      boxShadow: [
-                        '0 4px 20px rgba(255, 255, 255, 0.1)',
-                        '0 8px 30px rgba(255, 255, 255, 0.2)',
-                        '0 4px 20px rgba(255, 255, 255, 0.1)',
-                      ],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <motion.span
-                      className="mr-2 text-xl"
-                      animate={{
-                        rotate: [0, 10, -10, 0],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: index * 0.5,
-                      }}
-                    >
-                      {feature.icon}
-                    </motion.span>
-                    {feature.text}
-                  </motion.div>
-                </Link>
-                
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-2xl pointer-events-none"
-                  initial={{ x: '-100%' }}
-                  animate={{ x: '100%' }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                    ease: "easeInOut",
-                  }}
-                  style={{ transform: 'skewX(-20deg)' }}
-                />
-              </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {highlights.map((item) => (
+              <div key={item.label}>
+                <p className="text-sm uppercase tracking-[0.4em] text-white/60">{item.label}</p>
+                <p className="text-3xl font-heading mt-2">{item.value}</p>
+                <p className="text-sm text-white/70">{item.detail}</p>
+              </div>
             ))}
-          </motion.div>
-        </motion.div>
-      </div>
+          </div>
 
-      {/* Animated Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ 
-          opacity: 1, 
-          y: 0,
-        }}
-        transition={{ delay: 2.2, duration: 0.8 }}
-      >
-        <motion.div
-          className="w-8 h-14 border-2 border-white/60 rounded-full flex justify-center relative overflow-hidden"
-          whileHover={{ scale: 1.1 }}
-        >
-          <motion.div
-            className="w-1 h-4 bg-white/80 rounded-full mt-2"
-            animate={{
-              y: [0, 24, 0],
-              opacity: [1, 0.3, 1],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          
-          {/* Glow effect */}
-          <motion.div
-            className="absolute inset-0 bg-white/20 rounded-full"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
-      </motion.div>
+          <div className="mt-8 p-6 rounded-2xl bg-white/10 border border-white/10">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/60">Campus focus</p>
+            <p className="text-lg mt-2">
+              Lesson-ready prompts, governance templates, and communication scripts to help departments adopt AI confidently.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

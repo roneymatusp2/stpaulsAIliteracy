@@ -186,7 +186,7 @@ serve(async (req) => {
 async function fetchRSSFeed(source: any): Promise<NewsItem[]> {
   const response = await fetch(source.url, {
     headers: {
-      'User-Agent': 'AI-Teacher-Pro-Enhanced-Bot/2.0 (+https://ai-teachers.pro)',
+      'User-Agent': 'StPauls-AI-Learning/1.0 (+https://www.stpauls.br)',
       'Accept': 'application/rss+xml, application/atom+xml, text/xml, application/xml',
     }
   })
@@ -351,17 +351,8 @@ function isAIRelatedEnhanced(title: string, description: string): boolean {
     'unesco', 'oecd', 'european commission', 'ai4education',
     'partnership on ai', 'ai now institute', 'future of humanity institute',
     
-    // Portuguese terms
-    'inteligência artificial', 'aprendizado de máquina', 'redes neurais',
-    'visão computacional', 'processamento de linguagem natural',
-    
-    // Spanish terms
-    'inteligencia artificial', 'aprendizaje automático', 'redes neuronales',
-    
-    // French terms
+    // Multilingual awareness terms
     'intelligence artificielle', 'apprentissage automatique',
-    
-    // German terms
     'künstliche intelligenz', 'maschinelles lernen',
     
     // Social indicators
@@ -453,9 +444,8 @@ function extractEnhancedTags(title: string, description: string): string[] {
     'european commission': ['eu', 'international', 'policy'],
     
     // Languages
-    'português': ['portuguese', 'international'],
-    'español': ['spanish', 'international'],
-    'français': ['french', 'international'],
+    'spanish': ['spanish', 'international'],
+    'francais': ['french', 'international'],
     'deutsch': ['german', 'international'],
     
     // Other

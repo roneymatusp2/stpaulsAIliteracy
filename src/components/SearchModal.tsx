@@ -69,12 +69,12 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      ai_tool: 'from-blue-500 to-indigo-500',
-      course: 'from-green-500 to-emerald-500',
-      certification: 'from-purple-500 to-violet-500',
-      book: 'from-orange-500 to-amber-500',
-      site: 'from-pink-500 to-rose-500',
-      youtube: 'from-red-500 to-red-600'
+      ai_tool: 'from-sps-ruby to-sps-indigo',
+      course: 'from-sps-indigo to-sps-green',
+      certification: 'from-sps-ruby to-sps-green',
+      book: 'from-sps-indigo to-sps-ruby',
+      site: 'from-sps-ruby to-pink-500',
+      youtube: 'from-red-700 to-sps-ruby'
     };
     return colors[category as keyof typeof colors] || 'from-gray-500 to-gray-600';
   };
@@ -121,7 +121,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
+                    className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-sps-ruby transition-all duration-200"
                   />
                   
                   {query && (
@@ -155,7 +155,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                           transition={{ delay: index * 0.05 }}
                           className={`p-4 rounded-xl cursor-pointer transition-all duration-200 ${
                             index === selectedIndex
-                              ? 'bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border-2 border-green-200 dark:border-green-700'
+                              ? 'bg-gradient-to-r from-sps-ruby/5 to-sps-indigo/5 dark:from-sps-ruby/20 dark:to-sps-indigo/20 border-2 border-sps-ruby/40 dark:border-sps-ruby/30'
                               : 'hover:bg-gray-50 dark:hover:bg-gray-800 border-2 border-transparent'
                           }`}
                           onClick={() => handleResultClick(resource)}
@@ -181,7 +181,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                                   {resource.category.replace('_', ' ')}
                                 </span>
                                 {resource.provider_meta?.pricing && (
-                                  <span className="text-xs text-green-600 dark:text-green-400 font-medium">
+                                  <span className="text-xs text-sps-ruby dark:text-sps-ruby font-medium">
                                     {resource.provider_meta.pricing}
                                   </span>
                                 )}
@@ -228,7 +228,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                           }}
                           className="w-full flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 text-left"
                         >
-                          <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                          <div className="w-10 h-10 bg-gradient-to-r from-sps-ruby to-sps-indigo rounded-lg flex items-center justify-center text-white">
                             <span className="text-lg">{action.icon}</span>
                           </div>
                           <span className="font-medium text-gray-900 dark:text-white">
@@ -238,7 +238,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                       ))}
                     </div>
 
-                    <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl">
+                    <div className="mt-6 p-4 bg-gradient-to-r from-sps-ruby/5 to-sps-indigo/5 dark:from-sps-ruby/15 dark:to-sps-indigo/15 rounded-xl">
                       <h4 className="font-medium text-gray-900 dark:text-white mb-2">
                         💡 Pro Tip
                       </h4>

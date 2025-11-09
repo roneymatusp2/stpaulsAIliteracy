@@ -33,21 +33,21 @@ const DrawerDetail: React.FC<DrawerDetailProps> = ({
   }, [isOpen, onClose]);
 
   const categoryColors = {
-    ai_tool: 'from-blue-500 via-indigo-500 to-purple-600',
-    course: 'from-green-500 via-emerald-500 to-teal-600',
-    certification: 'from-purple-500 via-violet-500 to-fuchsia-600',
-    book: 'from-orange-500 via-amber-500 to-yellow-600',
-    site: 'from-pink-500 via-rose-500 to-red-600',
-    youtube: 'from-red-500 via-red-600 to-rose-700'
+    ai_tool: 'from-sps-ruby via-sps-indigo to-sps-indigo',
+    course: 'from-sps-indigo via-sps-green to-sps-green',
+    certification: 'from-sps-ruby via-sps-green to-sps-indigo',
+    book: 'from-sps-indigo via-purple-700 to-sps-ruby',
+    site: 'from-sps-ruby via-pink-600 to-rose-500',
+    youtube: 'from-red-700 via-red-500 to-sps-ruby'
   };
 
   const categoryBackgroundGradients = {
-    ai_tool: 'from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20',
-    course: 'from-green-50 via-emerald-50 to-teal-50 dark:from-green-900/20 dark:via-emerald-900/20 dark:to-teal-900/20',
-    certification: 'from-purple-50 via-violet-50 to-fuchsia-50 dark:from-purple-900/20 dark:via-violet-900/20 dark:to-fuchsia-900/20',
-    book: 'from-orange-50 via-amber-50 to-yellow-50 dark:from-orange-900/20 dark:via-amber-900/20 dark:to-yellow-900/20',
-    site: 'from-pink-50 via-rose-50 to-red-50 dark:from-pink-900/20 dark:via-rose-900/20 dark:to-red-900/20',
-    youtube: 'from-red-50 via-red-50 to-rose-50 dark:from-red-900/20 dark:via-red-900/20 dark:to-rose-900/20'
+    ai_tool: 'from-sps-ruby/5 via-sps-indigo/5 to-sps-indigo/5 dark:from-sps-ruby/20 dark:via-sps-indigo/20 dark:to-sps-indigo/20',
+    course: 'from-sps-indigo/5 via-sps-green/5 to-sps-green/5 dark:from-sps-indigo/20 dark:via-sps-green/20 dark:to-sps-green/20',
+    certification: 'from-sps-ruby/5 via-sps-green/5 to-sps-indigo/5 dark:from-sps-ruby/20 dark:via-sps-green/20 dark:to-sps-indigo/20',
+    book: 'from-sps-indigo/5 via-purple-100 to-sps-ruby/5 dark:from-sps-indigo/20 dark:via-purple-900/20 dark:to-sps-ruby/20',
+    site: 'from-sps-ruby/5 via-rose-100 to-rose-50 dark:from-sps-ruby/20 dark:via-rose-900/20 dark:to-rose-900/20',
+    youtube: 'from-red-50 via-red-100 to-sps-ruby/10 dark:from-red-900/20 dark:via-red-900/20 dark:to-sps-ruby/20'
   };
 
   const categoryIcons = {
@@ -210,7 +210,7 @@ const DrawerDetail: React.FC<DrawerDetailProps> = ({
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                    className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-sps-ruby to-sps-indigo text-white rounded-xl font-semibold hover:from-sps-ruby/90 hover:to-sps-indigo/90 transition-all duration-200 shadow-lg hover:shadow-xl"
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

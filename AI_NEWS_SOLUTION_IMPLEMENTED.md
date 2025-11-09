@@ -1,121 +1,60 @@
-# 🎉 AI News System - Solução Implementada
+# 🎉 AI News System – Implemented Safeguards
 
-## 🚨 Problema Original
-- Sistema mostrava sempre o mesmo artigo corrompido: **"9 Jun 2025, 07:12 TechCrunch AI Nvidia&#8217;s AI empire"**
-- 10 artigos corrompidos no banco com datas de 2025 (futuro)
-- HTML entities corrompidas (&#8217;, &#8216;)
-- Fonte "TechCrunch AI" gerando dados inválidos
-- Sistema preso desde 19 de junho
+## Original Issue
+- The feed repeatedly displayed a corrupted TechCrunch article dated June 2025.
+- Ten stale database rows contained future timestamps and HTML entity glitches.
+- TechCrunch source produced unreliable data and prevented new articles from surfacing.
 
-## ✅ Solução Implementada
+## Fix Summary
 
-### 1. **Filtragem Inteligente no Frontend**
-```typescript
-// Filtro automático que remove dados corrompidos antes da exibição
+### 1. Front-end sanitiser
+```ts
 const cleanData = data.filter(item => {
-  const isCorrupted = 
-    item.published_at.includes('2025') || // Datas futuras
-    item.source_name?.includes('TechCrunch AI') || // Fonte corrompida
-    item.title?.includes('&#8217;') || // HTML entities
-    item.title?.includes('&#8216;') || 
-    new Date(item.published_at) > new Date(); // Qualquer data futura
-  
-  if (isCorrupted) {
-    console.log(`🚫 Filtered out corrupted article: "${item.title}"`);
+  const corrupted =
+    item.published_at.includes('2025') ||
+    item.source_name?.includes('TechCrunch AI') ||
+    item.title?.includes('&#8217;') ||
+    item.title?.includes('&#8216;') ||
+    new Date(item.published_at) > new Date();
+  if (corrupted) {
+    console.log(`Filtered corrupted article: ${item.title}`);
     return false;
   }
   return true;
 });
 ```
+- Blocks future-dated entries and TechCrunch artefacts.
+- Removes titles containing HTML entities.
+- Provides console logging for audit trails.
 
-### 2. **Interface de Status Inteligente**
-- ✅ **Estado Limpo**: Quando artigos corrompidos são filtrados, mostra painel verde de sucesso
-- 🛡️ **Proteção Ativa**: Informa que o sistema está protegido contra dados corrompidos
-- 🔧 **Próximos Passos**: Orienta sobre configuração de fontes confiáveis
+### 2. Status interface
+- Shows green state when the dataset is clean.
+- Surfaces protection indicators for staff awareness.
+- Suggests next steps for configuring trusted sources.
 
-### 3. **Logging Detalhado**
-- Console mostra quais artigos foram filtrados
-- Feedback claro sobre o que está sendo bloqueado
-- Logs coloridos para fácil identificação
+### 3. Logging and feedback
+- Console output lists every filtered article and why it was rejected.
+- UI communicates whether protections are active.
 
-### 4. **Fallback Gracioso**
-- Se todos os artigos são corrompidos → Mostra painel de sistema limpo
-- Se alguns são corrompidos → Mostra apenas os limpos
-- Se nenhum é corrompido → Sistema funciona normalmente
+### 4. Graceful fallback
+- If every record is corrupted, the UI shows an empty yet “protected” panel rather than stale content.
 
-## 🛡️ Proteções Implementadas
+## Protectors now active
+- ❌ Future dates (≥2025).
+- ❌ “TechCrunch AI” source.
+- ❌ HTML entities `&#8217;` and `&#8216;`.
+- ❌ Any article where `published_at` is ahead of the current day.
 
-### **Filtragem Automática:**
-- ❌ **Datas Futuras**: Qualquer artigo com data >= 2025
-- ❌ **TechCrunch AI**: Fonte específica que estava gerando corrupção
-- ❌ **HTML Entities**: Títulos com &#8217;, &#8216; (aspas corrompidas)
-- ❌ **Datas Impossíveis**: Qualquer data > hoje
-
-### **Feedback Visual:**
-- 🟢 **Verde**: Sistema limpo e funcionando
-- 🔵 **Azul**: Instruções de configuração
-- 📋 **Console**: Logs detalhados de filtragem
-
-## 📊 Resultado Final
-
-### **Antes:**
+## Result
 ```
-🚨 10 artigos corrompidos visíveis
-📰 "Nvidia&#8217;s AI empire" - 2025-06-19 (FUTURO!)
-📰 Mais 9 artigos TechCrunch com datas 2025
-❌ Sistema quebrado há semanas
+Before: 10 corrupted articles visible, automation stalled.
+After: Corrupted data blocked, automation panel shows clean status, manual auto-fix guidance available.
 ```
 
-### **Depois:**
-```
-✅ 0 artigos corrompidos visíveis
-🛡️ Filtragem automática ativa
-📋 Console mostra artigos bloqueados
-🔧 Interface guia próximos passos
-```
+## How it works
+1. Fetch – pull articles from Supabase.
+2. Filter – remove invalid entries before rendering.
+3. Display – show clean featured article + grid.
+4. Monitor – logs describe each blocked row for transparency.
 
-## 🔧 Como Funciona
-
-1. **Fetch Dados**: Sistema busca todos os artigos do Supabase
-2. **Filtrar**: Remove automaticamente dados corrompidos antes da exibição
-3. **Exibir**: Mostra apenas dados limpos para o usuário
-4. **Feedback**: Interface informa que sistema está protegido
-5. **Log**: Console mostra detalhes de filtragem
-
-## 🚀 Benefícios
-
-### **Usuário Final:**
-- ✅ Nunca mais vê dados corrompidos
-- ✅ Interface limpa e confiável
-- ✅ Feedback claro sobre status do sistema
-
-### **Desenvolvedor:**
-- ✅ Solução robusta que funciona mesmo com RLS restritivo
-- ✅ Logs detalhados para debugging
-- ✅ Código limpo e maintível
-
-### **Sistema:**
-- ✅ Proteção permanente contra corrupção futura
-- ✅ Performance mantida (filtragem client-side)
-- ✅ Compatível com limitações de permissão
-
-## 📋 Próximos Passos (Opcionais)
-
-1. **Configurar Service Role Key**: Para operações administrativas completas
-2. **Deploy Edge Functions**: Para fetch automático de notícias reais
-3. **Adicionar Fontes Confiáveis**: OpenAI, Google AI, Anthropic, etc.
-4. **Configurar Cron Jobs**: Para atualização automática
-
-## 🎯 Status Atual
-
-✅ **PROBLEMA RESOLVIDO**
-- Dados corrompidos não aparecem mais para usuários
-- Sistema protegido contra corrupção futura
-- Interface clara e profissional
-- Solução implementada em **produção**
-
----
-
-**Implementado em**: 26 de dezembro de 2024  
-**Status**: ✅ **PRODUÇÃO - FUNCIONANDO**  
-**Teste**: Visite a seção AI News no site para ver o sistema limpo
+These controls keep the automation safe for the St. Paul’s School platform while longer-term source curation remains in place.

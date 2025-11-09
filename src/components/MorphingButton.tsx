@@ -26,8 +26,8 @@ const MorphingButton: React.FC<MorphingButtonProps> = ({
   `;
 
   const variants = {
-    primary: 'bg-gradient-to-r from-green-600 to-blue-600 text-white',
-    secondary: 'bg-white/20 backdrop-blur-sm border border-white/30 text-white'
+    primary: 'bg-gradient-to-r from-sps-ruby to-sps-indigo text-white',
+    secondary: 'bg-white/15 backdrop-blur-sm border border-white/40 text-white'
   };
 
   const buttonVariants = {
@@ -116,7 +116,7 @@ const MorphingButton: React.FC<MorphingButtonProps> = ({
         variants={glowVariants}
         initial="initial"
         animate={isHovered ? "hover" : "initial"}
-        className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-400 rounded-2xl blur-lg"
+        className="absolute inset-0 bg-gradient-to-r from-sps-ruby to-sps-indigo rounded-2xl blur-lg"
         style={{ zIndex: -1 }}
       />
 
@@ -213,13 +213,13 @@ const MorphingButton: React.FC<MorphingButtonProps> = ({
         }}
       >
         {/* Glow effect */}
-        <motion.div
-          variants={glowVariants}
-          initial="initial"
-          animate={isHovered ? "hover" : "initial"}
-          className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-400 rounded-2xl blur-lg"
-          style={{ zIndex: -1 }}
-        />
+      <motion.div
+        variants={glowVariants}
+        initial="initial"
+        animate={isHovered ? "hover" : "initial"}
+        className="absolute inset-0 bg-gradient-to-r from-sps-ruby to-sps-indigo rounded-2xl blur-lg"
+        style={{ zIndex: -1 }}
+      />
 
         {/* Shimmer effect */}
         <motion.div

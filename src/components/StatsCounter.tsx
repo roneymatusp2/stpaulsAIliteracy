@@ -64,7 +64,7 @@ const StatsCounter: React.FC<StatsCounterProps> = ({
             ease: "easeInOut",
           }}
         >
-          <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg">
+          <div className="w-16 h-16 bg-gradient-to-r from-sps-ruby to-sps-indigo rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg">
             {icon}
           </div>
         </motion.div>
@@ -75,7 +75,7 @@ const StatsCounter: React.FC<StatsCounterProps> = ({
         animate={isInView ? {
           textShadow: [
             "0 0 0 transparent",
-            "0 0 20px rgba(34, 197, 94, 0.5)",
+            "0 0 20px rgba(130, 0, 33, 0.5)",
             "0 0 0 transparent",
           ]
         } : {}}
@@ -95,7 +95,7 @@ const StatsCounter: React.FC<StatsCounterProps> = ({
       </motion.p>
 
       <motion.div
-        className="h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full mt-3 mx-auto"
+        className="h-1 bg-gradient-to-r from-sps-ruby to-sps-indigo rounded-full mt-3 mx-auto"
         initial={{ width: 0 }}
         animate={isInView ? { width: '60%' } : {}}
         transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}

@@ -2,20 +2,26 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Custom CSS Variables for AI Teacher Pro */
+/* St. Paul's School brand system */
 :root {
-  --primary-green: #0F4D3F;
-  --primary-navy: #002D59;
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  --backdrop-blur: blur(20px);
+  --sps-ruby: #820021;
+  --sps-indigo: #001D31;
+  --sps-green: #002718;
+  --sps-ruby-rgb: 130, 0, 33;
+  --sps-indigo-rgb: 0, 29, 49;
+  --sps-green-rgb: 0, 39, 24;
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 12px 40px rgba(0, 29, 49, 0.25);
+  --backdrop-blur: blur(18px);
+  --font-heading: 'Archer', 'Playfair Display', Georgia, serif;
+  --font-body: 'Century Gothic', 'Nunito Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 [data-theme="dark"] {
-  --glass-bg: rgba(0, 0, 0, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-bg: rgba(0, 29, 49, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
 
 /* Base Styles */
@@ -29,10 +35,15 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
 }
 
 /* Advanced 3D Perspective Utilities */
@@ -89,19 +100,19 @@ body {
 
 /* Focus Styles for Accessibility */
 .glass-card:focus-visible {
-  outline: 2px solid var(--primary-green);
+  outline: 2px solid var(--sps-ruby);
   outline-offset: 2px;
 }
 
 /* Advanced Gradient Backgrounds */
 .gradient-primary {
-  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-navy) 100%);
+  background: linear-gradient(135deg, var(--sps-ruby) 0%, var(--sps-indigo) 100%);
 }
 
 .gradient-glass {
   background: linear-gradient(135deg, 
-    rgba(15, 77, 63, 0.8) 0%, 
-    rgba(0, 45, 89, 0.8) 100%);
+    rgba(var(--sps-ruby-rgb), 0.85) 0%, 
+    rgba(var(--sps-indigo-rgb), 0.85) 100%);
   backdrop-filter: blur(20px);
 }
 
@@ -264,14 +275,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--primary-green) 0%, var(--primary-navy) 100%);
+  background: linear-gradient(180deg, var(--sps-ruby) 0%, var(--sps-indigo) 100%);
   border-radius: 6px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #16a34a 0%, #1e40af 100%);
+  background: linear-gradient(180deg, rgba(var(--sps-ruby-rgb), 0.9) 0%, rgba(var(--sps-indigo-rgb), 0.9) 100%);
 }
 
 /* Advanced Loading States */

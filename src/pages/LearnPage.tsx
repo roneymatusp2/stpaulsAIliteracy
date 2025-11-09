@@ -442,7 +442,7 @@ const ToolCard = ({ tool }: { tool: AiTool }) => (
     <div className="border rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow bg-gray-50 flex flex-col">
       <h3 className="text-xl font-bold text-gray-800">{tool.title}</h3>
       <p className="mt-2 text-gray-700 flex-grow">{tool.description}</p>
-      <a href={tool.url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block bg-green-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-green-700 transition-colors text-center">
+      <a href={tool.url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block bg-sps-ruby text-white font-semibold py-2 px-4 rounded-md hover:bg-sps-ruby/90 transition-colors text-center">
         Try Tool
       </a>
     </div>
@@ -450,7 +450,7 @@ const ToolCard = ({ tool }: { tool: AiTool }) => (
 
 const PageFooter = () => (
     <footer className="mt-20 text-center text-gray-500">
-      <p>&copy; 2025 ai-teachers.pro. All rights reserved.</p>
+      <p>&copy; 2025 St. Paul’s School, São Paulo. All rights reserved.</p>
     </footer>
 );
 
@@ -482,7 +482,7 @@ const LearnPage: React.FC = () => {
 
           {/* Essential AI Tools Section */}
           <section className="mt-16">
-            <h2 className="text-3xl font-bold text-gray-800 border-b-2 border-green-500 pb-2 mb-8">
+            <h2 className="text-3xl font-bold text-gray-800 border-b-2 border-sps-ruby pb-2 mb-8">
               Essential AI Tools for Teachers
             </h2>
             <div className="space-y-12">

@@ -66,12 +66,12 @@ const FilterBar: React.FC<FilterBarProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <input
-              type="text"
-              placeholder="Search resources..."
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+              <input
+                type="text"
+                placeholder="Search resources..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-sps-ruby focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             />
             {searchQuery && (
               <button
@@ -122,7 +122,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onCategoryChange('all')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               selectedCategory === 'all'
-                ? 'bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg'
+                ? 'bg-gradient-to-r from-sps-ruby to-sps-indigo text-white shadow-lg'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
@@ -134,7 +134,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
               onClick={() => onCategoryChange(category)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 selectedCategory === category
-                  ? 'bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg'
+                  ? 'bg-gradient-to-r from-sps-ruby to-sps-indigo text-white shadow-lg'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
             >
@@ -165,7 +165,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
                   onClick={() => handleTagToggle(tag)}
                   className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                     selectedTags.includes(tag)
-                      ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-700'
+                      ? 'bg-sps-ruby/15 dark:bg-sps-ruby/30 text-sps-ruby dark:text-sps-ruby border border-sps-ruby/40 dark:border-sps-ruby/30'
                       : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 border border-transparent'
                   }`}
                 >

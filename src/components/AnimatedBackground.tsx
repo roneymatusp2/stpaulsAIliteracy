@@ -15,6 +15,16 @@ const AnimatedBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>();
+  const palette = [
+    'rgba(130, 0, 33, 0.35)',
+    'rgba(0, 29, 49, 0.35)',
+    'rgba(0, 39, 24, 0.35)'
+  ];
+  const gradients = [
+    'linear-gradient(120deg, rgba(130,0,33,0.35), rgba(0,29,49,0.25))',
+    'linear-gradient(120deg, rgba(0,29,49,0.35), rgba(0,39,24,0.3))',
+    'linear-gradient(120deg, rgba(0,39,24,0.35), rgba(130,0,33,0.25))'
+  ];
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -41,7 +51,7 @@ const AnimatedBackground: React.FC = () => {
           vx: (Math.random() - 0.5) * 2,
           vy: (Math.random() - 0.5) * 2,
           size: Math.random() * 3 + 1,
-          color: `hsla(${Math.random() * 360}, 70%, 60%, 0.3)`,
+          color: palette[Math.floor(Math.random() * palette.length)],
           life: Math.random() * 100 + 50
         });
       }
@@ -121,7 +131,7 @@ const AnimatedBackground: React.FC = () => {
             key={i}
             className="absolute w-32 h-32 rounded-2xl opacity-10"
             style={{
-              background: `linear-gradient(45deg, hsl(${i * 60}, 70%, 60%), hsl(${i * 60 + 30}, 70%, 60%))`,
+              background: gradients[i % gradients.length],
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
@@ -151,7 +161,7 @@ const AnimatedBackground: React.FC = () => {
               top: `${20 + i * 20}%`,
               width: 200,
               height: 200,
-              background: `radial-gradient(circle, hsl(${i * 120}, 70%, 60%) 0%, transparent 70%)`,
+              background: `radial-gradient(circle, ${palette[i % palette.length]} 0%, transparent 70%)`,
               filter: 'blur(40px)',
             }}
             animate={{

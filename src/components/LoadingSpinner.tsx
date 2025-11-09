@@ -22,8 +22,8 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   };
 
   const colorClasses = {
-    primary: 'border-green-600 border-t-transparent',
-    secondary: 'border-blue-600 border-t-transparent',
+    primary: 'border-sps-ruby border-t-transparent',
+    secondary: 'border-sps-indigo border-t-transparent',
     white: 'border-white border-t-transparent'
   };
 
@@ -44,7 +44,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-green-500 rounded-full"
+            className="absolute w-2 h-2 bg-sps-ruby rounded-full"
             style={{
               left: '50%',
               top: '50%',

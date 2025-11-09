@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
 import { supabaseAdmin } from './supabase-admin';
 
-// Configurações do sistema automático
+// Automated system configuration
 const AUTOMATION_CONFIG = {
   FETCH_INTERVAL_HOURS: 3,
   SUMMARY_DELAY_MINUTES: 15,
@@ -21,12 +21,12 @@ export interface AutomationStatus {
   errors: string[];
 }
 
-// Inicializar sistema de automação
+// Initialise automation system
 export const initializeAINewsAutomation = async (): Promise<{ success: boolean; message: string }> => {
   try {
-    console.log('🚀 Inicializando sistema automático de notícias de IA...');
+    console.log('🚀 Initialising the AI news automation service...');
     
-    // Verificar se as tabelas existem
+    // Ensure required tables exist
     const { data: tables, error: tablesError } = await supabase
       .from('ai_news')
       .select('id')
@@ -35,11 +35,11 @@ export const initializeAINewsAutomation = async (): Promise<{ success: boolean; 
     if (tablesError) {
       return {
         success: false,
-        message: 'Erro: Tabelas do banco não encontradas. Execute as migrações primeiro.'
+        message: 'Error: Required database tables not found. Please run the migrations first.'
       };
     }
 
-    // Verificar fontes de notícias
+    // Check active news sources
     const { data: sources, error: sourcesError } = await supabase
       .from('news_sources')
       .select('*')
@@ -49,10 +49,10 @@ export const initializeAINewsAutomation = async (): Promise<{ success: boolean; 
       await setupReliableNewsSources();
     }
 
-    // Configurar automação no Supabase
+    // Configure Supabase automation (Edge Functions + schedules)
     await setupSupabaseAutomation();
 
-    // Iniciar primeira busca se não houver dados
+    // Trigger an initial fetch when no published articles exist
     const { data: existingNews } = await supabase
       .from('ai_news')
       .select('id')
@@ -60,25 +60,25 @@ export const initializeAINewsAutomation = async (): Promise<{ success: boolean; 
       .limit(1);
 
     if (!existingNews || existingNews.length === 0) {
-      console.log('📰 Iniciando primeira busca de notícias...');
+      console.log('📰 Starting first news fetch...');
       await triggerInitialNewsFetch();
     }
 
     return {
       success: true,
-      message: 'Sistema automático de notícias de IA inicializado com sucesso!'
+      message: 'AI news automation initialised successfully.'
     };
 
   } catch (error) {
-    console.error('❌ Erro na inicialização:', error);
+    console.error('❌ Initialisation error:', error);
     return {
       success: false,
-      message: `Erro na inicialização: ${error instanceof Error ? error.message : String(error)}`
+      message: `Initialisation error: ${error instanceof Error ? error.message : String(error)}`
     };
   }
 };
 
-// Configurar fontes confiáveis de notícias
+// Register reliable news sources
 const setupReliableNewsSources = async () => {
   const reliableSources = [
     {
@@ -132,28 +132,28 @@ const setupReliableNewsSources = async () => {
     }
   ];
 
-  // Limpar fontes antigas
+  // Remove existing sources
   await supabase.from('news_sources').delete().neq('id', '00000000-0000-0000-0000-000000000000');
 
-  // Inserir fontes confiáveis
+  // Insert the curated list
   for (const source of reliableSources) {
     const { error } = await supabase.from('news_sources').insert(source);
     if (error) {
       console.error(`❌ Erro ao inserir fonte ${source.name}:`, error);
     } else {
-      console.log(`✅ Fonte configurada: ${source.name}`);
+      console.log(`✅ Source registered: ${source.name}`);
     }
   }
 };
 
-// Configurar automação no Supabase (Edge Functions + Cron)
+// Configure automation in Supabase (Edge Functions + cron)
 const setupSupabaseAutomation = async () => {
   try {
-    // Log da configuração
+    // Log configuration
     await supabase.from('pipeline_logs').insert({
       operation: 'setup_automation',
       status: 'started',
-      message: 'Configurando sistema automático de notícias',
+      message: 'Configuring AI news automation',
       details: {
         project_id: AUTOMATION_CONFIG.PROJECT_ID,
         fetch_interval: AUTOMATION_CONFIG.FETCH_INTERVAL_HOURS,
@@ -161,16 +161,16 @@ const setupSupabaseAutomation = async () => {
       }
     });
 
-    console.log('⚙️ Sistema automático configurado no Supabase');
-    console.log(`🔄 Busca automática: a cada ${AUTOMATION_CONFIG.FETCH_INTERVAL_HOURS} horas`);
-    console.log(`🤖 Resumos de IA: ${AUTOMATION_CONFIG.SUMMARY_DELAY_MINUTES} minutos após busca`);
+    console.log('⚙️ Automation configured in Supabase');
+    console.log(`🔄 Automatic fetch cadence: every ${AUTOMATION_CONFIG.FETCH_INTERVAL_HOURS} hours`);
+    console.log(`🤖 AI summaries: ${AUTOMATION_CONFIG.SUMMARY_DELAY_MINUTES} minutes after each fetch`);
 
   } catch (error) {
-    console.error('❌ Erro na configuração da automação:', error);
+    console.error('❌ Automation configuration error:', error);
   }
 };
 
-// Busca inicial de notícias
+// Bootstrap fetch
 const triggerInitialNewsFetch = async () => {
   try {
     const { data, error } = await supabase.functions.invoke('fetch-ai-news', {
@@ -181,11 +181,11 @@ const triggerInitialNewsFetch = async () => {
     });
 
     if (error) {
-      console.error('❌ Erro na busca inicial:', error);
+      console.error('❌ Initial fetch error:', error);
       return;
     }
 
-    console.log('✅ Busca inicial concluída:', data);
+    console.log('✅ Initial fetch complete:', data);
 
     // Aguardar e processar resumos
     setTimeout(async () => {
@@ -193,11 +193,11 @@ const triggerInitialNewsFetch = async () => {
     }, 5000);
 
   } catch (error) {
-    console.error('❌ Erro na busca inicial:', error);
+    console.error('❌ Initial fetch error:', error);
   }
 };
 
-// Processar resumos de IA
+// Process AI summaries
 const triggerSummaryProcessing = async () => {
   try {
     const { data, error } = await supabase.functions.invoke('process-ai-summaries', {
@@ -219,10 +219,10 @@ const triggerSummaryProcessing = async () => {
   }
 };
 
-// Obter status do sistema automático
+// Retrieve automation status
 export const getAutomationStatus = async (): Promise<AutomationStatus> => {
   try {
-    // Verificar última busca
+    // Review last fetch
     const { data: lastFetch } = await supabase
       .from('pipeline_logs')
       .select('created_at')
@@ -232,7 +232,7 @@ export const getAutomationStatus = async (): Promise<AutomationStatus> => {
       .limit(1)
       .maybeSingle();
 
-    // Verificar último processamento de resumos
+    // Review last summary batch
     const { data: lastSummary } = await supabase
       .from('pipeline_logs')
       .select('created_at')
@@ -257,12 +257,12 @@ export const getAutomationStatus = async (): Promise<AutomationStatus> => {
       .order('created_at', { ascending: false })
       .limit(5);
 
-    // Calcular próxima busca
+    // Calculate next scheduled fetch
     const nextFetch = lastFetch?.created_at 
       ? new Date(new Date(lastFetch.created_at).getTime() + AUTOMATION_CONFIG.FETCH_INTERVAL_HOURS * 60 * 60 * 1000)
       : new Date();
 
-    // Determinar saúde do sistema
+    // Determine system health
     let systemHealth: 'healthy' | 'warning' | 'error' = 'healthy';
     if (recentErrors && recentErrors.length > 3) {
       systemHealth = 'error';
@@ -294,10 +294,10 @@ export const getAutomationStatus = async (): Promise<AutomationStatus> => {
   }
 };
 
-// Busca manual de notícias
+// Manual fetch trigger
 export const triggerManualNewsFetch = async (): Promise<{ success: boolean; message: string }> => {
   try {
-    console.log('🔄 Iniciando busca manual de notícias...');
+    console.log('🔄 Starting manual news fetch...');
 
     const { data, error } = await supabase.functions.invoke('fetch-ai-news', {
       body: { 
@@ -312,22 +312,22 @@ export const triggerManualNewsFetch = async (): Promise<{ success: boolean; mess
 
     return {
       success: true,
-      message: `Busca concluída: ${data.articles_fetched} novos artigos encontrados`
+        message: `Fetch complete: ${data.articles_fetched} new articles`
     };
 
   } catch (error) {
-    console.error('❌ Erro na busca manual:', error);
+    console.error('❌ Manual fetch error:', error);
     return {
       success: false,
-      message: `Erro na busca: ${error instanceof Error ? error.message : String(error)}`
+      message: `Fetch error: ${error instanceof Error ? error.message : String(error)}`
     };
   }
 };
 
-// Processamento manual de resumos
+// Manual summary processing
 export const triggerManualSummaryProcessing = async (): Promise<{ success: boolean; message: string }> => {
   try {
-    console.log('🤖 Iniciando processamento manual de resumos...');
+    console.log('🤖 Starting manual summary processing...');
 
     const { data, error } = await supabase.functions.invoke('process-ai-summaries', {
       body: { 
@@ -342,22 +342,22 @@ export const triggerManualSummaryProcessing = async (): Promise<{ success: boole
 
     return {
       success: true,
-      message: `Resumos processados: ${data.processed} artigos`
+      message: `Summaries processed: ${data.processed} articles`
     };
 
   } catch (error) {
-    console.error('❌ Erro no processamento manual:', error);
+    console.error('❌ Manual processing error:', error);
     return {
       success: false,
-      message: `Erro no processamento: ${error instanceof Error ? error.message : String(error)}`
+      message: `Processing error: ${error instanceof Error ? error.message : String(error)}`
     };
   }
 };
 
-// Limpeza automática de dados antigos
+// Automatic clean-up of stale data
 export const performAutomaticCleanup = async (): Promise<{ success: boolean; message: string }> => {
   try {
-    console.log('🧹 Executando limpeza automática...');
+    console.log('🧹 Running automatic clean-up...');
 
     // Remover logs antigos
     const { error: logsError } = await supabase
@@ -379,49 +379,49 @@ export const performAutomaticCleanup = async (): Promise<{ success: boolean; mes
       .or('published_at.gte.2025-01-01,title.ilike.*&#8217;*,title.ilike.*&#8216;*');
 
     if (logsError || failedError || corruptedError) {
-      throw new Error('Erro durante limpeza');
+      throw new Error('Error during clean-up');
     }
 
     return {
       success: true,
-      message: 'Limpeza automática concluída com sucesso'
+      message: 'Automatic clean-up complete'
     };
 
   } catch (error) {
-    console.error('❌ Erro na limpeza:', error);
+    console.error('❌ Clean-up error:', error);
     return {
       success: false,
-      message: `Erro na limpeza: ${error instanceof Error ? error.message : String(error)}`
+      message: `Clean-up error: ${error instanceof Error ? error.message : String(error)}`
     };
   }
 };
 
-// Verificar saúde do sistema
+// Evaluate system health
 export const checkSystemHealth = async (): Promise<{ healthy: boolean; issues: string[] }> => {
   const issues: string[] = [];
 
   try {
-    // Verificar conexão com Supabase
+    // Verify Supabase connectivity
     const { error: connectionError } = await supabase
       .from('ai_news')
       .select('id')
       .limit(1);
 
     if (connectionError) {
-      issues.push('Erro de conexão com Supabase');
+      issues.push('Supabase connection error');
     }
 
-    // Verificar fontes ativas
+    // Check active sources
     const { data: activeSources, error: sourcesError } = await supabase
       .from('news_sources')
       .select('id')
       .eq('is_active', true);
 
     if (sourcesError || !activeSources || activeSources.length === 0) {
-      issues.push('Nenhuma fonte de notícias ativa');
+      issues.push('No active news sources configured');
     }
 
-    // Verificar erros recentes
+    // Check recent errors
     const { data: recentErrors } = await supabase
       .from('pipeline_logs')
       .select('id')
@@ -429,7 +429,7 @@ export const checkSystemHealth = async (): Promise<{ healthy: boolean; issues: s
       .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
 
     if (recentErrors && recentErrors.length > 5) {
-      issues.push(`Muitos erros recentes: ${recentErrors.length} nas últimas 24h`);
+      issues.push(`Multiple errors recorded: ${recentErrors.length} in the last 24h`);
     }
 
     return {
@@ -440,7 +440,7 @@ export const checkSystemHealth = async (): Promise<{ healthy: boolean; issues: s
   } catch (error) {
     return {
       healthy: false,
-      issues: [`Erro na verificação: ${error instanceof Error ? error.message : String(error)}`]
+      issues: [`Verification error: ${error instanceof Error ? error.message : String(error)}`]
     };
   }
 };
@@ -476,7 +476,7 @@ export const startRealtimeMonitoring = () => {
         if (log.status === 'error') {
           console.error('❌ Erro no pipeline:', log.message);
         } else if (log.status === 'completed') {
-          console.log('✅ Operação concluída:', log.operation);
+          console.log('✅ Operation complete:', log.operation);
         }
       }
     )
@@ -492,5 +492,5 @@ export const startRealtimeMonitoring = () => {
   };
 };
 
-// Exportar configurações
+// Export configuration
 export { AUTOMATION_CONFIG }; 

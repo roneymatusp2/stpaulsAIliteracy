@@ -1,208 +1,94 @@
 import React from 'react';
 
 const AboutPage: React.FC = () => {
+  const principles = [
+    {
+      title: 'Pedagogy before platforms',
+      description: 'AI is adopted only when it protects time for excellent teaching and purposeful relationships.'
+    },
+    {
+      title: 'Whole-community readiness',
+      description: 'Parents, pupils, and staff receive transparent guidance so innovation feels safe and inclusive.'
+    },
+    {
+      title: 'Data ethics at the core',
+      description: 'All recommendations respect privacy law, inspection frameworks, and St. Paul’s safeguarding commitments.'
+    }
+  ];
+
+  const values = [
+    { icon: '⚖️', title: 'Integrity', copy: 'Clear guardrails, audit trails, and accountability for every workflow.' },
+    { icon: '🎨', title: 'Creativity', copy: 'Inviting pupils to co-design solutions that celebrate bilingual and bicultural identities.' },
+    { icon: '🧭', title: 'Stewardship', copy: 'Sequenced adoption roadmaps ensure sustainability rather than one-off experiments.' },
+    { icon: '🤲', title: 'Community', copy: 'Sharing practice with other British International schools across Brazil and beyond.' }
+  ];
+
   return (
     <div className="pt-20">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-blue-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">
-            About AI Teacher Pro
+      <section className="py-20 bg-gradient-to-r from-sps-indigo to-sps-ruby text-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-sm uppercase tracking-[0.5em] text-white/80">St. Paul’s School · Educational Technology Department</p>
+          <h1 className="text-4xl md:text-6xl font-heading font-semibold mt-6">
+            About the AI Learning Platform
           </h1>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto leading-relaxed">
-            Empowering educators to harness the transformative power of artificial intelligence 
-            in their classrooms through practical guidance and cutting-edge tools.
+          <p className="mt-6 text-xl text-white/80">
+            We help teachers and pupils in São Paulo harness artificial intelligence responsibly, creatively, and in harmony with our British international heritage.
           </p>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-card p-12 text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
-              Our Mission
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-              We believe that artificial intelligence isn't just the future of education—it's the present. 
-              Our mission is to bridge the gap between cutting-edge AI technology and practical classroom application, 
-              helping teachers everywhere to enhance their impact and transform student learning experiences.
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="glass-card p-12">
+            <h2 className="text-3xl md:text-4xl font-heading text-sps-indigo dark:text-white mb-6">Our Mission</h2>
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              To make St. Paul’s School the safest and most inspiring place to explore artificial intelligence in Latin America by uniting pedagogy, governance, and community voice.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              <div className="text-center">
-                <div className="text-4xl mb-4">🎯</div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Practical Focus</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Real solutions for real classrooms
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl mb-4">🌟</div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Excellence</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Curated, high-quality resources only
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl mb-4">🤝</div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Community</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Building connections amongst educators
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* The Book Section */}
-          <div id="buy" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16 scroll-mt-24">
-            <div>
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                The Book: "Generative AI for Teachers"
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                Our comprehensive guide provides secondary school and IB teachers with practical strategies 
-                for integrating generative AI tools into their daily teaching practice. From lesson planning 
-                to assessment, discover how AI can enhance rather than replace your expertise.
-              </p>
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300">320+ pages of practical guidance</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300">50+ real classroom examples</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300">Step-by-step implementation guides</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300">Ethical considerations and best practices</span>
-                </div>
-              </div>
-              
-              {/* Purchase Options */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Get Your Copy:</h3>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a 
-                    href="https://www.amazon.com/dp/B0FF3L24H6" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200 flex-1 justify-center"
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    Buy on Amazon
-                  </a>
-                  <a 
-                    href="/pt-br/about#buy" 
-                    className="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 flex-1 justify-center"
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5h12M3 12h18m-9 7h9" />
-                    </svg>
-                    🇧🇷 Versão em Português
-                  </a>
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  Available in paperback and Kindle editions. International shipping available.
-                </div>
-              </div>
-            </div>
-            <div className="text-center">
-              <img 
-                src="https://nyc.cloud.appwrite.io/v1/storage/buckets/68518e5500284ee65814/files/68518ebd0024ac797a36/view?project=680e68b10024125b5c0b&mode=admin" 
-                alt="Generative AI for Teachers book cover – open book with robotic arm and light bulb"
-                className="mx-auto rounded-2xl shadow-2xl max-w-sm w-full hover:scale-105 transition-transform duration-300"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          {/* Values Section */}
-          <div className="text-center">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-12">
-              Our Core Values
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  icon: '🔍',
-                  title: 'Transparency',
-                  description: 'Open about AI capabilities and limitations'
-                },
-                {
-                  icon: '⚖️',
-                  title: 'Ethics',
-                  description: 'Responsible AI use in educational settings'
-                },
-                {
-                  icon: '📈',
-                  title: 'Innovation',
-                  description: 'Staying ahead of educational technology trends'
-                },
-                {
-                  icon: '🎓',
-                  title: 'Education First',
-                  description: 'Technology serves pedagogy, not the other way round'
-                }
-              ].map((value, index) => (
-                <div key={index} className="glass-card p-6 text-center hover:scale-105 transition-all duration-300">
-                  <div className="text-3xl mb-4">{value.icon}</div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                    {value.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">
-                    {value.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <p className="text-sm uppercase tracking-[0.4em] text-sps-indigo/70 mt-8">MANIBUS POTENTIA STUDIUM ANIMIS</p>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
-            Get in Touch
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-            Have questions or suggestions? We'd love to hear from you.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="mailto:hello@ai-teachers.pro" 
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Send us an Email
-            </a>
-            <a 
-              href="#newsletter" 
-              className="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-200"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-5 5h5m-5-5v5" />
-              </svg>
-              Join Our Newsletter
-            </a>
+      <section className="py-20 bg-sps-indigo/5 dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {principles.map((principle) => (
+              <div key={principle.title} className="glass-card p-8">
+                <h3 className="text-xl font-heading text-sps-indigo dark:text-white mb-3">{principle.title}</h3>
+                <p className="text-gray-700 dark:text-gray-300">{principle.description}</p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-heading text-sps-indigo dark:text-white">Values in Action</h2>
+            <p className="text-gray-600 dark:text-gray-300 mt-4">How the platform supports daily life at St. Paul’s.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value) => (
+              <div key={value.title} className="glass-card p-6 text-center">
+                <div className="text-3xl mb-3">{value.icon}</div>
+                <h3 className="text-lg font-heading text-sps-indigo dark:text-white mb-2">{value.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">{value.copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-sps-indigo/5 dark:bg-gray-950">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-heading text-sps-indigo dark:text-white mb-6">Contact</h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            Educational Technology Department · Rua Juquiá, 166 – Jardim Paulistano – São Paulo – 01440-903
+          </p>
+          <a href="mailto:edtech@stpauls.br" className="mt-4 inline-flex items-center text-sps-ruby font-semibold">
+            edtech@stpauls.br
+          </a>
         </div>
       </section>
     </div>

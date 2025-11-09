@@ -1,249 +1,236 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import FloatingCardGrid from '../components/FloatingCardGrid';
 import AINewsSection from '../components/AINewsSection';
-import Newsletter from '../components/Newsletter';
-import NewsletterModal from '../components/NewsletterModal';
-import DonationSection from '../components/DonationSection';
 import { mockResources } from '../lib/supabase';
-import { motion } from 'framer-motion';
 
 const HomePage: React.FC = () => {
-  const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
-  
-  // Get featured resources for homepage
   const featuredResources = mockResources.slice(0, 6);
 
-  const features = [
+  const focusAreas = [
     {
-      icon: '🎯',
-      title: 'Curated AI Tools',
-      description: 'Hand-picked tools tested by educators for real classroom impact.',
-      color: 'from-blue-500 to-indigo-500'
+      icon: '🛡️',
+      title: 'Safe & Responsible AI',
+      description: 'Guidance aligned with St. Paul’s safeguarding, privacy, and academic integrity expectations.'
     },
     {
-      icon: '📚',
-      title: 'Expert Courses',
-      description: 'Learn from experienced educators who understand your challenges.',
-      color: 'from-green-500 to-emerald-500'
+      icon: '📋',
+      title: 'Curriculum-Ready Playbooks',
+      description: 'Step-by-step exemplars for IB, IGCSE, and bilingual pathways that save planning time.'
     },
     {
-      icon: '🚀',
-      title: 'Latest Updates',
-      description: 'Stay ahead with the newest developments in educational AI.',
-      color: 'from-purple-500 to-pink-500'
+      icon: '🤝',
+      title: 'Staff Capability Building',
+      description: 'Professional learning sequences that help every educator feel confident using AI.'
     },
     {
-      icon: '💡',
-      title: 'Practical Guides',
-      description: 'Step-by-step implementation guides for your classroom.',
-      color: 'from-orange-500 to-red-500'
+      icon: '🎓',
+      title: 'Pupil Innovation',
+      description: 'Studio-style challenges and co-curricular ideas for pupils to apply AI creatively and ethically.'
+    }
+  ];
+
+  const assurancePillars = [
+    {
+      label: 'Governance',
+      copy: 'Clear escalation routes, auditing notes, and documentation templates for EdTech approvals.'
     },
     {
-      icon: '⏰',
-      title: 'Save Time',
-      description: 'Automate routine tasks and focus on what matters most.',
-      color: 'from-yellow-500 to-orange-500'
+      label: 'Pedagogy First',
+      copy: 'Every tool recommendation is framed around learning intent, not hype.'
     },
     {
-      icon: '🌍',
-      title: 'Global Community',
-      description: 'Connect with like-minded educators from around the world.',
-      color: 'from-teal-500 to-cyan-500'
+      label: 'Accessibility',
+      copy: 'Support for varied devices, bandwidth, and learner needs across the school.'
+    }
+  ];
+
+  const engagementOptions = [
+    {
+      title: 'Educators',
+      description: 'Request bespoke coaching sessions or book a faculty briefing.',
+      action: { label: 'Email edtech@stpauls.br', href: 'mailto:edtech@stpauls.br' }
+    },
+    {
+      title: 'Leadership',
+      description: 'Access implementation roadmaps, audit templates, and governance packs.',
+      action: { label: 'View About page', href: '/about' }
+    },
+    {
+      title: 'Students',
+      description: 'Explore curated AI literacy tasks through the Library and Videos collections.',
+      action: { label: 'Browse Library', href: '/library' }
     }
   ];
 
   return (
     <>
-      <div className="fixed top-6 right-6 z-40">
-        <motion.a
-          href="#donate"
-          whileHover={{ scale: 1.05, y: -2 }}
-          whileTap={{ scale: 0.96 }}
-          className="group block rounded-2xl bg-white/95 dark:bg-gray-900/95 border border-rose-200/80 dark:border-rose-500/40 shadow-xl shadow-rose-200/40 dark:shadow-rose-900/50 px-5 py-4 backdrop-blur-sm"
-        >
-          <div className="flex items-center gap-3 text-rose-600 dark:text-rose-300 font-semibold tracking-wide">
-            <span className="text-xl">❤️</span>
-            <span className="text-sm uppercase">Donate</span>
-          </div>
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            Support our mission and explore giving options.
-          </p>
-        </motion.a>
-      </div>
-
-      <Hero lang='en' />
-
-      {/* AI News Section */}
+      <Hero />
       <AINewsSection />
-      
-      {/* Featured Resources Section */}
+
       <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FloatingCardGrid 
+          <FloatingCardGrid
             resources={featuredResources}
-            title="Featured AI Tools"
-            subtitle="Handpicked tools to transform your teaching practice"
+            title="Curated for St. Paul’s Classrooms"
+            subtitle="Authentic AI tools validated by our Educational Technology Department"
             showFilters={false}
             className="featured-grid"
           />
-          
+
           <div className="text-center mt-12">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link 
-                to="/tools" 
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white text-lg font-semibold rounded-2xl shadow-2xl hover:from-green-700 hover:to-blue-700 transition-all duration-300"
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/tools"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-sps-ruby to-sps-indigo text-white text-lg font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300"
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-                Explore All Tools
+                Explore full directory
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+      <section className="py-20 bg-sps-indigo/5 dark:bg-sps-green/40 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Why Choose AI Teacher Pro?
+          <div className="text-center mb-16">
+            <p className="text-sm uppercase tracking-[0.4em] text-sps-indigo/80">St. Paul’s Priorities</p>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-sps-indigo dark:text-white mt-4">
+              Intelligent adoption, guided by our values
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Everything you need to successfully integrate AI into your teaching practice
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mt-4">
+              Every recommendation on this platform is designed to uphold MANIBUS POTENTIA STUDIUM ANIMIS – skill in the hands, curiosity in the mind.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {focusAreas.map((item, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
+                key={item.title}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative overflow-hidden"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="glass-card p-8 text-center"
               >
-                <div className="glass-card p-8 h-full text-center group-hover:shadow-2xl transition-all duration-300">
-                  {/* Icon */}
-                  <motion.div
-                    className={`w-16 h-16 mx-auto mb-6 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-2xl shadow-lg`}
-                    whileHover={{ 
-                      scale: 1.2,
-                      rotate: [0, -10, 10, 0],
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {feature.icon}
-                  </motion.div>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                    {feature.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {feature.description}
-                  </p>
-
-                  {/* Hover effect */}
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}
-                  />
-                </div>
+                <div className="text-3xl mb-4">{item.icon}</div>
+                <h3 className="text-xl font-heading text-sps-indigo dark:text-white mb-2">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
+      <section className="py-20 bg-gradient-to-r from-sps-ruby to-sps-indigo relative overflow-hidden text-white">
+        <div className="absolute inset-0 opacity-20">
+          {[...Array(12)].map((_, i) => (
             <motion.div
-              key={i}
-              className="absolute w-4 h-4 bg-white rounded-full opacity-10"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
+              key={`orb-${i}`}
+              className="absolute w-3 h-3 bg-white rounded-full"
+              style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
               animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.1, 0.3, 0.1],
+                y: [0, -15, 0],
+                opacity: [0.2, 0.6, 0.2]
               }}
-              transition={{
-                duration: 3,
-                delay: i * 0.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              transition={{ duration: 4 + i * 0.2, repeat: Infinity }}
             />
           ))}
         </div>
-
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Transform Your Teaching?
-            </h2>
-            <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
-              Join our community of forward-thinking educators and start your AI journey today.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                onClick={() => setIsNewsletterModalOpen(true)}
-                className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-2xl hover:bg-gray-100 transition-all duration-200 shadow-lg"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <p className="text-sm uppercase tracking-[0.5em] mb-4">Whole-school readiness</p>
+          <h2 className="text-4xl md:text-5xl font-heading font-semibold mb-6">
+            Implementation support from classroom pilots to strategic governance
+          </h2>
+          <p className="text-lg text-white/80 mb-10">
+            Use the platform to scope ideas, then partner with the Educational Technology Department for bespoke coaching, parent communication, and policy alignment.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/learn"
+                className="inline-flex items-center px-8 py-4 rounded-2xl bg-white/15 border border-white/30 text-white font-semibold backdrop-blur-sm"
               >
-                📧 Get Weekly Updates
-              </motion.button>
-              
-              <motion.div
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                📚 View professional learning guides
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <a
+                href="mailto:edtech@stpauls.br"
+                className="inline-flex items-center px-8 py-4 rounded-2xl bg-white text-sps-indigo font-semibold"
               >
-                <Link
-                  to="/about"
-                  className="inline-flex items-center px-8 py-4 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-200"
-                >
-                  📖 Read the Book
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
+                ✉️ Contact Educational Technology
+              </a>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      <Newsletter />
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-heading text-sps-indigo dark:text-white mb-4">
+              Confidence through clarity
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Practical guardrails accompany every recommendation so teams can adopt AI responsibly.
+            </p>
+          </div>
 
-      {/* Donation Section */}
-      <DonationSection language="en" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {assurancePillars.map((pillar) => (
+              <div key={pillar.label} className="glass-card p-8">
+                <p className="text-sm uppercase tracking-[0.3em] text-sps-indigo/70 mb-3">{pillar.label}</p>
+                <p className="text-gray-700 dark:text-gray-300">{pillar.copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* Newsletter Modal */}
-      <NewsletterModal
-        isOpen={isNewsletterModalOpen}
-        onClose={() => setIsNewsletterModalOpen(false)}
-      />
+      <section className="py-20 bg-sps-indigo/5 dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {engagementOptions.map((option) => {
+              const isInternal = option.action.href.startsWith('/');
+              return (
+                <div key={option.title} className="glass-card p-8 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-2xl font-heading text-sps-indigo dark:text-white mb-3">{option.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">{option.description}</p>
+                </div>
+                <motion.div whileHover={{ x: 4 }}>
+                  {isInternal ? (
+                    <Link to={option.action.href} className="inline-flex items-center text-sps-ruby font-semibold">
+                      {option.action.label}
+                    </Link>
+                  ) : (
+                    <a href={option.action.href} className="inline-flex items-center text-sps-ruby font-semibold">
+                      {option.action.label}
+                    </a>
+                  )}
+                </motion.div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-16 glass-card p-8 text-center">
+            <p className="text-sm uppercase tracking-[0.4em] text-sps-indigo/70">Campus contact</p>
+            <h3 className="text-3xl font-heading text-sps-indigo dark:text-white mt-4">
+              Rua Juquiá, 166 · Jardim Paulistano · São Paulo · 01440-903
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300 mt-4">
+              Educational Technology Department · edtech@stpauls.br
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

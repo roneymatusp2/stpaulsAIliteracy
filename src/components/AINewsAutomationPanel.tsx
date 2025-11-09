@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
+import {
   initializeAINewsAutomation,
   getAutomationStatus,
   triggerManualNewsFetch,
@@ -19,17 +19,12 @@ const AINewsAutomationPanel: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isCleaning, setIsCleaning] = useState(false);
   const [systemHealth, setSystemHealth] = useState<{ healthy: boolean; issues: string[] } | null>(null);
-  const [realtimeMonitoring, setRealtimeMonitoring] = useState<any>(null);
 
   useEffect(() => {
     loadStatus();
     checkHealth();
-    
-    // Iniciar monitoramento em tempo real
-    const monitoring = startRealtimeMonitoring();
-    setRealtimeMonitoring(monitoring);
 
-    // Atualizar status a cada 30 segundos
+    const monitoring = startRealtimeMonitoring();
     const interval = setInterval(() => {
       loadStatus();
       checkHealth();
@@ -37,9 +32,7 @@ const AINewsAutomationPanel: React.FC = () => {
 
     return () => {
       clearInterval(interval);
-      if (monitoring) {
-        monitoring.stop();
-      }
+      monitoring?.stop();
     };
   }, []);
 
@@ -48,7 +41,7 @@ const AINewsAutomationPanel: React.FC = () => {
       const automationStatus = await getAutomationStatus();
       setStatus(automationStatus);
     } catch (error) {
-      console.error('Erro ao carregar status:', error);
+      console.error('Unable to load automation status', error);
     }
   };
 
@@ -57,7 +50,7 @@ const AINewsAutomationPanel: React.FC = () => {
       const health = await checkSystemHealth();
       setSystemHealth(health);
     } catch (error) {
-      console.error('Erro ao verificar saúde:', error);
+      console.error('Unable to check system health', error);
     }
   };
 
@@ -66,13 +59,13 @@ const AINewsAutomationPanel: React.FC = () => {
     try {
       const result = await initializeAINewsAutomation();
       if (result.success) {
-        alert('✅ Sistema inicializado com sucesso!');
+        alert('Automation initialised successfully.');
         await loadStatus();
       } else {
-        alert(`❌ Erro na inicialização: ${result.message}`);
+        alert(`Initialisation issue: ${result.message}`);
       }
     } catch (error) {
-      alert(`❌ Erro: ${error instanceof Error ? error.message : String(error)}`);
+      alert(`Initialisation failed: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setIsInitializing(false);
     }
@@ -82,14 +75,10 @@ const AINewsAutomationPanel: React.FC = () => {
     setIsFetching(true);
     try {
       const result = await triggerManualNewsFetch();
-      if (result.success) {
-        alert(`✅ ${result.message}`);
-        await loadStatus();
-      } else {
-        alert(`❌ ${result.message}`);
-      }
+      alert(result.message);
+      await loadStatus();
     } catch (error) {
-      alert(`❌ Erro: ${error instanceof Error ? error.message : String(error)}`);
+      alert(`Unable to fetch news: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setIsFetching(false);
     }
@@ -99,14 +88,10 @@ const AINewsAutomationPanel: React.FC = () => {
     setIsProcessing(true);
     try {
       const result = await triggerManualSummaryProcessing();
-      if (result.success) {
-        alert(`✅ ${result.message}`);
-        await loadStatus();
-      } else {
-        alert(`❌ ${result.message}`);
-      }
+      alert(result.message);
+      await loadStatus();
     } catch (error) {
-      alert(`❌ Erro: ${error instanceof Error ? error.message : String(error)}`);
+      alert(`Unable to process summaries: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setIsProcessing(false);
     }
@@ -116,255 +101,141 @@ const AINewsAutomationPanel: React.FC = () => {
     setIsCleaning(true);
     try {
       const result = await performAutomaticCleanup();
-      if (result.success) {
-        alert(`✅ ${result.message}`);
-        await loadStatus();
-      } else {
-        alert(`❌ ${result.message}`);
-      }
+      alert(result.message);
+      await loadStatus();
     } catch (error) {
-      alert(`❌ Erro: ${error instanceof Error ? error.message : String(error)}`);
+      alert(`Automatic clean-up failed: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setIsCleaning(false);
     }
   };
 
   const formatDate = (dateString: string | null) => {
-    if (!dateString) return 'Nunca';
-    return new Date(dateString).toLocaleString('pt-BR');
+    if (!dateString) return 'Not yet recorded';
+    return new Date(dateString).toLocaleString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
-  const getHealthColor = (health: 'healthy' | 'warning' | 'error') => {
+  const getHealthColour = (health: 'healthy' | 'warning' | 'error') => {
     switch (health) {
-      case 'healthy': return 'text-green-600 dark:text-green-400';
-      case 'warning': return 'text-yellow-600 dark:text-yellow-400';
-      case 'error': return 'text-red-600 dark:text-red-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'healthy': return 'text-sps-green';
+      case 'warning': return 'text-yellow-600';
+      case 'error': return 'text-red-600';
+      default: return 'text-gray-500';
     }
   };
 
-  const getHealthIcon = (health: 'healthy' | 'warning' | 'error') => {
+  const getHealthCopy = (health: 'healthy' | 'warning' | 'error') => {
     switch (health) {
-      case 'healthy': return '✅';
-      case 'warning': return '⚠️';
-      case 'error': return '❌';
-      default: return '❓';
+      case 'healthy': return 'All services nominal';
+      case 'warning': return 'Requires review';
+      case 'error': return 'Immediate action needed';
+      default: return 'Pending';
     }
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 border border-white/20">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-          🤖 Sistema Automático de Notícias IA
-        </h2>
-        <div className="flex items-center space-x-2">
-          <div className={`w-3 h-3 rounded-full ${status?.isRunning ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {status?.isRunning ? 'Ativo' : 'Inativo'}
-          </span>
+        <h2 className="text-2xl font-heading text-sps-indigo dark:text-white">AI News Automation</h2>
+        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+          <span className={`w-3 h-3 rounded-full ${status?.isRunning ? 'bg-sps-green animate-pulse' : 'bg-red-500'}`}></span>
+          <span>{status?.isRunning ? 'Running' : 'Paused'}</span>
         </div>
       </div>
 
-      {/* Configuração do Projeto */}
-      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-        <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">🔧 Configuração</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          <div>
-            <span className="text-blue-600 dark:text-blue-400">Projeto ID:</span>
-            <span className="ml-2 font-mono text-blue-800 dark:text-blue-200">{AUTOMATION_CONFIG.PROJECT_ID}</span>
-          </div>
-          <div>
-            <span className="text-blue-600 dark:text-blue-400">URL:</span>
-            <span className="ml-2 font-mono text-blue-800 dark:text-blue-200">{AUTOMATION_CONFIG.SUPABASE_URL}</span>
-          </div>
-          <div>
-            <span className="text-blue-600 dark:text-blue-400">Busca automática:</span>
-            <span className="ml-2 text-blue-800 dark:text-blue-200">A cada {AUTOMATION_CONFIG.FETCH_INTERVAL_HOURS}h</span>
-          </div>
-          <div>
-            <span className="text-blue-600 dark:text-blue-400">Resumos IA:</span>
-            <span className="ml-2 text-blue-800 dark:text-blue-200">{AUTOMATION_CONFIG.SUMMARY_DELAY_MINUTES}min após busca</span>
-          </div>
+      <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4 bg-sps-indigo/5 dark:bg-gray-800 rounded-xl p-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-sps-indigo/70">Project ID</p>
+          <p className="font-mono text-sps-indigo dark:text-white">{AUTOMATION_CONFIG.PROJECT_ID}</p>
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-sps-indigo/70">Supabase URL</p>
+          <p className="font-mono text-sps-indigo dark:text-white break-all">{AUTOMATION_CONFIG.SUPABASE_URL}</p>
         </div>
       </div>
 
-      {/* Status do Sistema */}
       {status && (
-        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
-          <h3 className="font-semibold text-gray-800 dark:text-white mb-4">📊 Status do Sistema</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-            <div className="text-center p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-2xl mb-1">📰</div>
-              <div className="font-semibold text-gray-900 dark:text-white">Última Busca</div>
-              <div className="text-gray-600 dark:text-gray-400">{formatDate(status.lastFetch)}</div>
-            </div>
-            <div className="text-center p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-2xl mb-1">🤖</div>
-              <div className="font-semibold text-gray-900 dark:text-white">Último Resumo</div>
-              <div className="text-gray-600 dark:text-gray-400">{formatDate(status.lastSummary)}</div>
-            </div>
-            <div className="text-center p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-2xl mb-1">⏰</div>
-              <div className="font-semibold text-gray-900 dark:text-white">Próxima Busca</div>
-              <div className="text-gray-600 dark:text-gray-400">{formatDate(status.nextScheduledFetch)}</div>
-            </div>
-            <div className="text-center p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-2xl mb-1">📋</div>
-              <div className="font-semibold text-gray-900 dark:text-white">Fila</div>
-              <div className="text-gray-600 dark:text-gray-400">{status.articlesInQueue} artigos</div>
-            </div>
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="glass-card p-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-sps-indigo/70">Last fetch</p>
+            <p className="mt-2 text-gray-900 dark:text-white">{formatDate(status.lastFetch)}</p>
           </div>
-          
-          {/* Saúde do Sistema */}
-          <div className="mt-4 p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-gray-900 dark:text-white">Saúde do Sistema:</span>
-              <span className={`flex items-center ${getHealthColor(status.systemHealth)}`}>
-                {getHealthIcon(status.systemHealth)} {status.systemHealth.toUpperCase()}
-              </span>
-            </div>
-            {status.errors.length > 0 && (
-              <div className="mt-2">
-                <div className="text-sm text-red-600 dark:text-red-400 font-medium">Erros Recentes:</div>
-                <ul className="text-xs text-red-500 dark:text-red-400 mt-1">
-                  {status.errors.slice(0, 3).map((error, index) => (
-                    <li key={index}>• {error}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+          <div className="glass-card p-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-sps-indigo/70">Last summary batch</p>
+            <p className="mt-2 text-gray-900 dark:text-white">{formatDate(status.lastSummary)}</p>
+          </div>
+          <div className="glass-card p-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-sps-indigo/70">Articles queued</p>
+            <p className="mt-2 text-3xl font-heading text-sps-indigo dark:text-white">{status.articlesInQueue}</p>
+          </div>
+          <div className="glass-card p-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-sps-indigo/70">Next scheduled run</p>
+            <p className="mt-2 text-gray-900 dark:text-white">{formatDate(status.nextScheduledFetch)}</p>
           </div>
         </div>
       )}
 
-      {/* Saúde Detalhada */}
-      {systemHealth && (
-        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
-          <h3 className="font-semibold text-gray-800 dark:text-white mb-4">🏥 Diagnóstico Detalhado</h3>
-          <div className={`p-3 rounded-lg ${systemHealth.healthy ? 'bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-700' : 'bg-red-100 dark:bg-red-900/20 border border-red-200 dark:border-red-700'}`}>
-            <div className={`font-medium ${systemHealth.healthy ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'}`}>
-              {systemHealth.healthy ? '✅ Sistema Saudável' : '❌ Problemas Detectados'}
-            </div>
+      {systemHealth && (() => {
+        const severity: 'healthy' | 'warning' | 'error' =
+          systemHealth.healthy ? 'healthy' : systemHealth.issues.length ? 'warning' : 'error';
+        return (
+          <div className="mb-8 p-4 bg-sps-green/10 rounded-xl">
+            <p className={`font-semibold ${getHealthColour(severity)}`}>
+              {getHealthCopy(severity)}
+            </p>
             {systemHealth.issues.length > 0 && (
-              <ul className="mt-2 text-sm text-red-600 dark:text-red-400">
-                {systemHealth.issues.map((issue, index) => (
-                  <li key={index}>• {issue}</li>
+              <ul className="mt-2 text-sm text-gray-600 dark:text-gray-300 list-disc list-inside">
+                {systemHealth.issues.map((issue) => (
+                  <li key={issue}>{issue}</li>
                 ))}
               </ul>
             )}
           </div>
-        </div>
-      )}
+        );
+      })()}
 
-      {/* Controles */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <motion.button
           onClick={handleInitialize}
           disabled={isInitializing}
-          className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          whileHover={{ scale: isInitializing ? 1 : 1.05 }}
-          whileTap={{ scale: isInitializing ? 1 : 0.95 }}
+          className="px-4 py-3 rounded-xl bg-gradient-to-r from-sps-ruby to-sps-indigo text-white font-semibold disabled:opacity-50"
+          whileHover={{ scale: isInitializing ? 1 : 1.02 }}
         >
-          {isInitializing ? (
-            <>
-              <motion.div
-                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
-              Inicializando...
-            </>
-          ) : (
-            <>
-              🚀 Inicializar Sistema
-            </>
-          )}
+          {isInitializing ? 'Initialising…' : 'Initialise automation'}
         </motion.button>
-
-        <motion.button
-          onClick={handleManualFetch}
-          disabled={isFetching}
-          className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-medium hover:from-green-700 hover:to-teal-700 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          whileHover={{ scale: isFetching ? 1 : 1.05 }}
-          whileTap={{ scale: isFetching ? 1 : 0.95 }}
-        >
-          {isFetching ? (
-            <>
-              <motion.div
-                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
-              Buscando...
-            </>
-          ) : (
-            <>
-              📰 Buscar Notícias
-            </>
-          )}
-        </motion.button>
-
-        <motion.button
-          onClick={handleManualProcessing}
-          disabled={isProcessing}
-          className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:from-orange-700 hover:to-red-700 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          whileHover={{ scale: isProcessing ? 1 : 1.05 }}
-          whileTap={{ scale: isProcessing ? 1 : 0.95 }}
-        >
-          {isProcessing ? (
-            <>
-              <motion.div
-                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
-              Processando...
-            </>
-          ) : (
-            <>
-              🤖 Processar Resumos
-            </>
-          )}
-        </motion.button>
-
         <motion.button
           onClick={handleCleanup}
           disabled={isCleaning}
-          className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-lg font-medium hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          whileHover={{ scale: isCleaning ? 1 : 1.05 }}
-          whileTap={{ scale: isCleaning ? 1 : 0.95 }}
+          className="px-4 py-3 rounded-xl bg-sps-indigo/10 text-sps-indigo font-semibold disabled:opacity-50"
+          whileHover={{ scale: isCleaning ? 1 : 1.02 }}
         >
-          {isCleaning ? (
-            <>
-              <motion.div
-                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
-              Limpando...
-            </>
-          ) : (
-            <>
-              🧹 Limpeza
-            </>
-          )}
+          {isCleaning ? 'Cleaning…' : 'Clean & validate data'}
         </motion.button>
-      </div>
-
-      {/* Informações Adicionais */}
-      <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-700">
-        <h3 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">ℹ️ Informações Importantes</h3>
-        <ul className="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
-          <li>• O sistema busca notícias automaticamente a cada {AUTOMATION_CONFIG.FETCH_INTERVAL_HOURS} horas</li>
-          <li>• Os resumos são processados automaticamente {AUTOMATION_CONFIG.SUMMARY_DELAY_MINUTES} minutos após cada busca</li>
-          <li>• A limpeza automática remove dados antigos a cada 30 dias</li>
-          <li>• O monitoramento em tempo real está ativo e detecta mudanças automaticamente</li>
-          <li>• Todas as operações são logadas no banco de dados para auditoria</li>
-        </ul>
+        <motion.button
+          onClick={handleManualFetch}
+          disabled={isFetching}
+          className="px-4 py-3 rounded-xl bg-sps-green text-white font-semibold disabled:opacity-50"
+          whileHover={{ scale: isFetching ? 1 : 1.02 }}
+        >
+          {isFetching ? 'Fetching…' : 'Manual news fetch'}
+        </motion.button>
+        <motion.button
+          onClick={handleManualProcessing}
+          disabled={isProcessing}
+          className="px-4 py-3 rounded-xl bg-white border border-sps-indigo/30 text-sps-indigo font-semibold disabled:opacity-50"
+          whileHover={{ scale: isProcessing ? 1 : 1.02 }}
+        >
+          {isProcessing ? 'Processing…' : 'Process AI summaries'}
+        </motion.button>
       </div>
     </div>
   );
 };
 
-export default AINewsAutomationPanel; 
+export default AINewsAutomationPanel;

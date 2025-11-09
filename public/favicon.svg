@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>St. Paul's School AI</title>
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    <linearGradient id="sps-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#820021" />
+      <stop offset="100%" stop-color="#001D31" />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="20" fill="url(#grad)"/>
-  <path d="M25 35h50v6H25v-6zm0 12h50v6H25v-6zm0 12h35v6H25v-6z" fill="white"/>
-  <circle cx="70" cy="65" r="8" fill="white"/>
-  <path d="M66 61l4 4 8-8" stroke="#10B981" stroke-width="2" fill="none"/>
+  <rect width="64" height="64" rx="14" fill="url(#sps-gradient)" />
+  <path d="M16 22h20c6 0 10 4 10 9s-4 9-10 9h-8v12h-12V22z" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M28 22v20h7c6 0 9 3 9 7s-3 7-9 7H16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
 </svg>

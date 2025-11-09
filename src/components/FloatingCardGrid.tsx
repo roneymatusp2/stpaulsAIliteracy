@@ -176,7 +176,7 @@ const FloatingCardGrid: React.FC<FloatingCardGridProps> = ({
             className="text-center py-20"
           >
             <motion.div
-              className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 flex items-center justify-center"
+              className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-r from-sps-ruby/15 to-sps-indigo/15 dark:from-sps-ruby/30 dark:to-sps-indigo/30 flex items-center justify-center"
               animate={{
                 rotate: [0, 360],
                 scale: [1, 1.1, 1],
@@ -211,7 +211,7 @@ const FloatingCardGrid: React.FC<FloatingCardGridProps> = ({
                 setSelectedCategory('all');
                 setSelectedTags([]);
               }}
-              className="px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-2xl font-medium hover:from-green-700 hover:to-blue-700 transition-all duration-300"
+              className="px-8 py-4 bg-gradient-to-r from-sps-ruby to-sps-indigo text-white rounded-2xl font-medium hover:from-sps-ruby to-sps-indigo transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >

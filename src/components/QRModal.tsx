@@ -155,13 +155,13 @@ const QRModal: React.FC<QRModalProps> = ({
                     type="text"
                     value={shortLink}
                     readOnly
-                    className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-sps-ruby focus:border-transparent"
                   />
                   <button
                     onClick={handleCopyLink}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                       copied
-                        ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
+                        ? 'bg-sps-ruby/15 text-sps-ruby'
                         : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                     }`}
                   >
@@ -182,7 +182,7 @@ const QRModal: React.FC<QRModalProps> = ({
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={handleDownloadQR}
-                  className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl font-medium hover:from-green-700 hover:to-blue-700 transition-all duration-200"
+                  className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-sps-ruby to-sps-indigo text-white rounded-xl font-medium hover:from-sps-ruby/90 hover:to-sps-indigo/90 transition-all duration-200"
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

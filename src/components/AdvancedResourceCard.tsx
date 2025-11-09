@@ -20,12 +20,12 @@ const AdvancedResourceCard: React.FC<AdvancedResourceCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
 
   const categoryColors = {
-    ai_tool: 'from-blue-500 via-indigo-500 to-purple-600',
-    course: 'from-green-500 via-emerald-500 to-teal-600',
-    certification: 'from-purple-500 via-violet-500 to-fuchsia-600',
-    book: 'from-orange-500 via-amber-500 to-yellow-600',
-    site: 'from-pink-500 via-rose-500 to-red-600',
-    youtube: 'from-red-500 via-red-600 to-rose-700'
+    ai_tool: 'from-sps-ruby via-sps-indigo to-sps-indigo',
+    course: 'from-sps-indigo via-sps-green to-sps-green',
+    certification: 'from-sps-ruby via-sps-green to-sps-indigo',
+    book: 'from-sps-indigo via-purple-700 to-sps-ruby',
+    site: 'from-sps-ruby via-pink-600 to-rose-500',
+    youtube: 'from-red-700 via-red-500 to-sps-ruby'
   };
 
   const categoryIcons = {
@@ -283,7 +283,7 @@ const AdvancedResourceCard: React.FC<AdvancedResourceCardProps> = ({
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 + 0.8 }}
             >
-              <span className="text-sm font-bold text-green-600 dark:text-green-400">
+              <span className="text-sm font-bold text-sps-ruby dark:text-sps-ruby">
                 {resource.provider_meta.pricing}
               </span>
             </motion.div>

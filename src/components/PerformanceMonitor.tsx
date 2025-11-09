@@ -57,13 +57,13 @@ const PerformanceMonitor: React.FC = () => {
   }, []);
 
   const getFPSColor = (fps: number) => {
-    if (fps >= 55) return 'text-green-500';
+    if (fps >= 55) return 'text-sps-green';
     if (fps >= 30) return 'text-yellow-500';
     return 'text-red-500';
   };
 
   const getPerformanceStatus = (fps: number) => {
-    if (fps >= 55) return { label: 'Excellent', color: 'bg-green-500' };
+    if (fps >= 55) return { label: 'Excellent', color: 'bg-sps-green' };
     if (fps >= 45) return { label: 'Good', color: 'bg-yellow-500' };
     if (fps >= 30) return { label: 'Fair', color: 'bg-orange-500' };
     return { label: 'Poor', color: 'bg-red-500' };

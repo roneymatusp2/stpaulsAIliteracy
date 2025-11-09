@@ -8,27 +8,19 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export interface Resource {
   id: string;
   category: 'ai_tool' | 'course' | 'certification' | 'book' | 'site' | 'youtube';
-  title: string; // Portuguese Title
-  title_en?: string; // English Title
-  description?: string; // Portuguese Description
-  description_en?: string; // English Description
+  title: string;
+  description?: string;
   url?: string;
-  tags: string[]; // Portuguese Tags
-  tags_en?: string[]; // English Tags
+  tags: string[];
   cover_url?: string;
   provider_meta?: {
-    type?: string; // Portuguese Type
-    type_en?: string; // English Type
+    type?: string;
     eligibility?: string;
     geo_scope?: string;
-    pricing?: string; // Portuguese Pricing
-    pricing_en?: string; // English Pricing
-    key_features?: string; // Portuguese Key Features
-    key_features_en?: string; // English Key Features
-    ai_relevance?: string; // Portuguese AI Relevance
-    ai_relevance_en?: string; // English AI Relevance
-    future_potential?: string; // Portuguese Future Potential
-    future_potential_en?: string; // English Future Potential
+    pricing?: string;
+    key_features?: string;
+    ai_relevance?: string;
+    future_potential?: string;
   };
   created_at: string;
   updated_at: string;
@@ -265,19 +257,6 @@ export const curatedResources: Resource[] = [
 
 // Mock resources for demonstration (only real, working tools)
 export const mockResources: Resource[] = curatedResources;
-
-// Newsletter subscription function
-export const subscribeToNewsletter = async (email: string) => {
-  // For now, we'll simulate the subscription
-  // In a real app, this would call your Supabase function or API
-  console.log('Newsletter subscription for:', email);
-  
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // Simulate success
-  return { success: true };
-};
 
 // QR Code and Short Link functions
 export const generateQRCodeUrl = (resourceId: string): string => {

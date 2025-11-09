@@ -66,7 +66,7 @@ class ErrorBoundary extends Component<Props, State> {
             <div className="space-y-4">
               <motion.button
                 onClick={() => window.location.reload()}
-                className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200"
+                className="w-full px-6 py-3 bg-gradient-to-r from-sps-ruby to-sps-indigo text-white rounded-xl font-semibold hover:from-sps-ruby/90 hover:to-sps-indigo/90 transition-all duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

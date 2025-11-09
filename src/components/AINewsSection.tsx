@@ -149,7 +149,7 @@ const AINewsSection: React.FC = () => {
 
     } catch (error) {
       console.error('❌ Failed to trigger news fetch:', error);
-      alert('Erro ao buscar notícias. Verifique as configurações da API.');
+      alert('Unable to fetch news. Please verify the API configuration.');
     } finally {
       setIsManuallyFetching(false);
     }
@@ -178,7 +178,7 @@ const AINewsSection: React.FC = () => {
 
     } catch (error) {
       console.error('❌ Failed to trigger summary processing:', error);
-      alert('Erro ao processar resumos. Verifique as configurações da OpenAI API.');
+      alert('Unable to process summaries. Please verify the OpenAI configuration.');
     } finally {
       setIsProcessingSummaries(false);
     }
@@ -239,7 +239,7 @@ const AINewsSection: React.FC = () => {
       
       if (result.success) {
         console.log('✅ System reset successful!');
-        alert('Sistema resetado com sucesso! Dados corrompidos removidos e fontes confiáveis configuradas.');
+        alert('System reset complete. Corrupted data removed and trusted sources restored.');
         
         // Wait and refresh
         setTimeout(() => {
@@ -248,11 +248,11 @@ const AINewsSection: React.FC = () => {
         }, 3000);
       } else {
         console.error('❌ Reset failed:', result.error);
-        alert('Erro no reset: ' + result.error);
+        alert('Reset error: ' + result.error);
       }
     } catch (error) {
       console.error('❌ Reset failed:', error);
-      alert('Erro no reset do sistema: ' + error);
+      alert('System reset failed: ' + error);
     } finally {
       setIsResetting(false);
     }
@@ -274,7 +274,7 @@ const AINewsSection: React.FC = () => {
         checkLastFetchTime();
       }, 1000);
       
-      alert('✅ Dados limpos! O sistema agora filtra automaticamente artigos corrompidos.\n\n🛡️ Proteções ativas:\n- Bloqueia TechCrunch AI\n- Bloqueia datas futuras (2025)\n- Remove HTML entities corrompidas\n\nO sistema está agora protegido contra dados corrompidos.');
+      alert('✅ Data set refreshed. The platform now filters corrupted TechCrunch items, future-dated articles, and HTML entity issues before display.');
       
     } catch (error) {
       console.error('❌ Error during cleanup visualization:', error);
@@ -354,12 +354,12 @@ const AINewsSection: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-xl"
+              className="mt-6 inline-flex items-center px-4 py-2 bg-sps-ruby/10 dark:bg-sps-ruby/30 border border-sps-ruby/30 rounded-xl"
             >
-              <svg className="w-4 h-4 text-green-600 dark:text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-sps-ruby mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm font-medium text-green-800 dark:text-green-200">
+              <span className="text-sm font-medium text-sps-ruby">
                 Last updated: {formatRelativeTime(lastFetchTime)}
               </span>
             </motion.div>
@@ -374,7 +374,7 @@ const AINewsSection: React.FC = () => {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                 selectedCategory === category
-                  ? 'bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg'
+                  ? 'bg-gradient-to-r from-sps-ruby to-sps-indigo text-white shadow-lg'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
               whileHover={{ scale: 1.05 }}
@@ -393,7 +393,7 @@ const AINewsSection: React.FC = () => {
           <motion.button
             onClick={triggerNewsFetch}
             disabled={isManuallyFetching}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-sps-indigo to-sps-ruby text-white rounded-xl font-medium hover:from-sps-indigo/90 hover:to-sps-ruby/90 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             whileHover={{ scale: isManuallyFetching ? 1 : 1.05 }}
             whileTap={{ scale: isManuallyFetching ? 1 : 0.95 }}
           >
@@ -419,7 +419,7 @@ const AINewsSection: React.FC = () => {
           <motion.button
             onClick={triggerSummaryProcessing}
             disabled={isProcessingSummaries}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl font-medium hover:from-green-700 hover:to-teal-700 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-sps-ruby to-sps-green text-white rounded-xl font-medium hover:from-sps-ruby/90 hover:to-sps-green/90 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             whileHover={{ scale: isProcessingSummaries ? 1 : 1.05 }}
             whileTap={{ scale: isProcessingSummaries ? 1 : 0.95 }}
           >
@@ -475,7 +475,7 @@ const AINewsSection: React.FC = () => {
                     </span>
                   )}
                   {featuredItem.education_relevance && featuredItem.education_relevance > 70 && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-green-800 bg-green-100 dark:text-green-200 dark:bg-green-900">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-sps-ruby bg-sps-ruby/10 dark:text-sps-ruby dark:bg-sps-ruby/30">
                       🎓 Education Focus
                     </span>
                   )}
@@ -486,7 +486,7 @@ const AINewsSection: React.FC = () => {
                 </div>
               </div>
               
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-sps-ruby transition-colors">
                 {featuredItem.title}
               </h2>
               
@@ -495,23 +495,23 @@ const AINewsSection: React.FC = () => {
                 dangerouslySetInnerHTML={{ __html: featuredItem.summary_md }}
               />
               
-              <div className="flex flex-wrap gap-2 mb-4">
-                {featuredItem.tags.slice(0, 6).map((tag, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {featuredItem.tags.slice(0, 6).map((tag, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 text-sm bg-sps-indigo/10 dark:bg-sps-indigo/30 text-sps-indigo rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-500 dark:text-gray-400">
                   👁️ {featuredItem.view_count} views
                 </span>
                 <motion.span 
-                  className="text-green-600 dark:text-green-400 font-medium group-hover:translate-x-2 transition-transform"
+                className="text-sps-ruby font-medium group-hover:translate-x-2 transition-transform"
                   whileHover={{ x: 5 }}
                 >
                   Read full article →
@@ -550,7 +550,7 @@ const AINewsSection: React.FC = () => {
                   </span>
                 </div>
                 
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-sps-ruby transition-colors">
                   {item.title}
                 </h3>
                 
@@ -580,7 +580,7 @@ const AINewsSection: React.FC = () => {
                     👁️ {item.view_count}
                   </span>
                   <motion.span 
-                    className="text-green-600 dark:text-green-400 font-medium"
+                    className="text-sps-ruby font-medium"
                     whileHover={{ x: 3 }}
                   >
                     Read more →
@@ -604,16 +604,16 @@ const AINewsSection: React.FC = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900 rounded-xl border border-green-200 dark:border-green-700"
+              className="inline-flex items-center px-4 py-2 bg-sps-ruby/10 dark:bg-sps-ruby/30 rounded-xl border border-sps-ruby/30"
             >
-              <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-              <span className="text-sm text-green-800 dark:text-green-200 font-medium">
-                🤖 Real AI News System - No Fake Content
+              <div className="w-2 h-2 rounded-full bg-sps-ruby mr-2 animate-pulse"></div>
+              <span className="text-sm text-sps-ruby font-medium">
+                🤖 St. Paul’s AI News Feed – curated sources only
               </span>
             </motion.div>
             
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-              Powered by OpenAI GPT-4o-mini with fallback to Groq, Cohere, Anthropic, and Grok
+              Powered by the St. Paul’s serverless stack (OpenAI GPT-4o-mini with Groq, Cohere, Anthropic, and Grok fallbacks)
             </p>
           </div>
         )}

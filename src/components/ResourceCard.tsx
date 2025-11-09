@@ -19,12 +19,12 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
   const categoryColors = {
-    ai_tool: 'from-blue-500 via-indigo-500 to-purple-600',
-    course: 'from-green-500 via-emerald-500 to-teal-600',
-    certification: 'from-purple-500 via-violet-500 to-fuchsia-600',
-    book: 'from-orange-500 via-amber-500 to-yellow-600',
-    site: 'from-pink-500 via-rose-500 to-red-600',
-    youtube: 'from-red-500 via-red-600 to-rose-700'
+    ai_tool: 'from-sps-ruby via-sps-indigo to-sps-indigo',
+    course: 'from-sps-indigo via-sps-green to-sps-green',
+    certification: 'from-sps-ruby via-sps-green to-sps-indigo',
+    book: 'from-sps-indigo via-purple-700 to-sps-ruby',
+    site: 'from-sps-ruby via-pink-600 to-rose-500',
+    youtube: 'from-red-700 via-red-500 to-sps-ruby'
   };
 
   const categoryIcons = {
@@ -85,7 +85,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
     return (
       <>
         <motion.div
-          className={`glass-card p-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 rounded-lg overflow-hidden group hover:shadow-lg ${className}`}
+          className={`glass-card p-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sps-ruby focus:ring-offset-2 rounded-lg overflow-hidden group hover:shadow-lg ${className}`}
           onClick={handleCardClick}
           onKeyDown={handleKeyDown}
           tabIndex={0}
@@ -104,7 +104,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
             {/* Content */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-1">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1 group-hover:text-sps-ruby transition-colors">
                   {resource.title}
                 </h3>
                 <button
@@ -127,7 +127,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
                 </span>
                 
                 {resource.provider_meta?.pricing && (
-                  <span className="text-xs text-green-600 dark:text-green-400 font-medium">
+                  <span className="text-xs text-sps-ruby font-medium">
                     {resource.provider_meta.pricing}
                   </span>
                 )}
@@ -160,7 +160,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
   return (
     <>
       <motion.div
-        className={`glass-card overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 rounded-lg group ${className}`}
+        className={`glass-card overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-sps-ruby focus:ring-offset-2 rounded-lg group ${className}`}
         onClick={handleCardClick}
         onKeyDown={handleKeyDown}
         tabIndex={0}
@@ -215,7 +215,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
 
         {/* Content - Much More Compact */}
         <div className="p-4">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors leading-tight">
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-sps-ruby transition-colors leading-tight">
             {resource.title}
           </h3>
           
@@ -248,7 +248,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
 
             {/* Pricing */}
             {resource.provider_meta?.pricing && (
-              <span className="text-xs font-semibold text-green-600 dark:text-green-400">
+              <span className="text-xs font-semibold text-sps-ruby">
                 {resource.provider_meta.pricing}
               </span>
             )}
