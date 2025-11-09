@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Resource } from '../lib/supabase';
+import { BookmarkButton } from './BookmarkButton';
 
 interface AdvancedResourceCardProps {
   resource: Resource;
@@ -8,6 +9,7 @@ interface AdvancedResourceCardProps {
   viewMode?: 'grid' | 'list';
   onCardClick?: () => void;
   onQRClick?: () => void;
+  onAuthRequired?: () => void;
 }
 
 const AdvancedResourceCard: React.FC<AdvancedResourceCardProps> = ({
@@ -15,7 +17,8 @@ const AdvancedResourceCard: React.FC<AdvancedResourceCardProps> = ({
   index,
   viewMode = 'grid',
   onCardClick,
-  onQRClick
+  onQRClick,
+  onAuthRequired
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -118,17 +121,33 @@ const AdvancedResourceCard: React.FC<AdvancedResourceCardProps> = ({
               <h3 className="text-lg font-bold text-gray-900 dark:text-white line-clamp-1">
                 {resource.title}
               </h3>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onQRClick?.();
-                }}
-                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M12 12h.01M12 12v4.01" />
-                </svg>
-              </button>
+              <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                <BookmarkButton
+                  resourceType={resource.category === 'course' ? 'course' : resource.category === 'book' ? 'book' : 'tool'}
+                  resourceId={resource.id.toString()}
+                  resourceTitle={resource.title}
+                  resourceUrl={resource.url}
+                  resourceMetadata={{
+                    category: resource.category,
+                    description: resource.description,
+                    tags: resource.tags,
+                    provider_meta: resource.provider_meta
+                  }}
+                  variant="icon-only"
+                  onAuthRequired={onAuthRequired}
+                />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onQRClick?.();
+                  }}
+                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M12 12h.01M12 12v4.01" />
+                  </svg>
+                </button>
+              </div>
             </div>
             
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white bg-gradient-to-r ${categoryColors[resource.category]}`}>
@@ -176,19 +195,36 @@ const AdvancedResourceCard: React.FC<AdvancedResourceCardProps> = ({
               {categoryLabels[resource.category]}
             </motion.span>
 
-            <motion.button
-              onClick={(e) => {
-                e.stopPropagation();
-                onQRClick?.();
-              }}
-              className="p-2 bg-white/80 dark:bg-gray-800/80 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-lg border border-white/30 dark:border-gray-600/30"
-              whileHover={{ scale: 1.1, rotate: 90 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M12 12h.01M12 12v4.01" />
-              </svg>
-            </motion.button>
+            <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+              <BookmarkButton
+                resourceType={resource.category === 'course' ? 'course' : resource.category === 'book' ? 'book' : 'tool'}
+                resourceId={resource.id.toString()}
+                resourceTitle={resource.title}
+                resourceUrl={resource.url}
+                resourceMetadata={{
+                  category: resource.category,
+                  description: resource.description,
+                  tags: resource.tags,
+                  provider_meta: resource.provider_meta
+                }}
+                variant="icon-only"
+                onAuthRequired={onAuthRequired}
+                className="p-2 bg-white/80 dark:bg-gray-800/80 shadow-lg border border-white/30 dark:border-gray-600/30"
+              />
+              <motion.button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onQRClick?.();
+                }}
+                className="p-2 bg-white/80 dark:bg-gray-800/80 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-lg border border-white/30 dark:border-gray-600/30"
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M12 12h.01M12 12v4.01" />
+                </svg>
+              </motion.button>
+            </div>
           </div>
 
           <div className="flex justify-center mb-4">

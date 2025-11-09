@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 interface UserProfileButtonProps {
@@ -8,6 +9,7 @@ interface UserProfileButtonProps {
 
 export const UserProfileButton: React.FC<UserProfileButtonProps> = ({ onOpenAuth }) => {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -125,7 +127,7 @@ export const UserProfileButton: React.FC<UserProfileButtonProps> = ({ onOpenAuth
               <button
                 onClick={() => {
                   setIsDropdownOpen(false);
-                  // Navigate to bookmarks page (to be implemented)
+                  navigate('/bookmarks');
                 }}
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               >

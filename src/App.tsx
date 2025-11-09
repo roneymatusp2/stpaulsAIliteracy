@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import AnimatedBackground from './components/AnimatedBackground';
 import ErrorBoundary from './components/ErrorBoundary';
 import PerformanceMonitor from './components/PerformanceMonitor';
+import { PWAInstallPrompt } from './components/PWAInstallPrompt';
 import { useAnalytics, usePerformanceMonitoring } from './hooks/useAnalytics';
 import './styles/globals.css';
 
@@ -16,6 +17,7 @@ const LearnPage = lazy(() => import('./pages/LearnPage'));
 const LibraryPage = lazy(() => import('./pages/LibraryPage'));
 const VideosPage = lazy(() => import('./pages/VideosPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
 
 // Loading component for suspense fallback
 const PageLoader = () => (
@@ -84,6 +86,7 @@ function App() {
                   <Route path="/learn" element={<LearnPage />} />
                   <Route path="/library" element={<LibraryPage />} />
                   <Route path="/videos" element={<VideosPage />} />
+                  <Route path="/bookmarks" element={<BookmarksPage />} />
                   <Route path="/about" element={<AboutPage />} />
                 </Routes>
               </Suspense>
@@ -101,6 +104,7 @@ function App() {
         </motion.div>
 
         <PerformanceMonitor />
+        <PWAInstallPrompt />
       </div>
     </ErrorBoundary>
   );
