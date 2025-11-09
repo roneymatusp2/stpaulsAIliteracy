@@ -1,18 +1,31 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import AdvancedHeader from './components/AdvancedHeader';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import ToolsPage from './pages/ToolsPage';
-import LearnPage from './pages/LearnPage';
-import LibraryPage from './pages/LibraryPage';
-import VideosPage from './pages/VideosPage';
-import AboutPage from './pages/AboutPage';
 import AnimatedBackground from './components/AnimatedBackground';
 import ErrorBoundary from './components/ErrorBoundary';
 import PerformanceMonitor from './components/PerformanceMonitor';
 import { useAnalytics, usePerformanceMonitoring } from './hooks/useAnalytics';
 import './styles/globals.css';
+
+// Lazy load pages for better performance and code splitting
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ToolsPage = lazy(() => import('./pages/ToolsPage'));
+const LearnPage = lazy(() => import('./pages/LearnPage'));
+const LibraryPage = lazy(() => import('./pages/LibraryPage'));
+const VideosPage = lazy(() => import('./pages/VideosPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+
+// Loading component for suspense fallback
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="text-center">
+      <div className="w-16 h-16 border-4 border-ruby-red border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+      <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+    </div>
+  </div>
+);
 
 function App() {
   const location = useLocation();
@@ -64,14 +77,16 @@ function App() {
               transition={pageTransition}
               className="min-h-screen"
             >
-              <Routes location={location}>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/tools" element={<ToolsPage />} />
-                <Route path="/learn" element={<LearnPage />} />
-                <Route path="/library" element={<LibraryPage />} />
-                <Route path="/videos" element={<VideosPage />} />
-                <Route path="/about" element={<AboutPage />} />
-              </Routes>
+              <Suspense fallback={<PageLoader />}>
+                <Routes location={location}>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/tools" element={<ToolsPage />} />
+                  <Route path="/learn" element={<LearnPage />} />
+                  <Route path="/library" element={<LibraryPage />} />
+                  <Route path="/videos" element={<VideosPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                </Routes>
+              </Suspense>
             </motion.div>
           </AnimatePresence>
         </main>

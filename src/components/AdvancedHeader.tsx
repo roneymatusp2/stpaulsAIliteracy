@@ -3,6 +3,8 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle';
 import SearchModal from './SearchModal';
+import { UserProfileButton } from './UserProfileButton';
+import { AuthModal } from './AuthModal';
 
 const navItems = [
   { label: 'AI Tools', href: '/', icon: '🤖' },
@@ -17,6 +19,7 @@ const AdvancedHeader: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const { scrollY } = useScroll();
   const location = useLocation();
 
@@ -109,6 +112,8 @@ const AdvancedHeader: React.FC = () => {
 
               <DarkModeToggle />
 
+              <UserProfileButton onOpenAuth={() => setIsAuthOpen(true)} />
+
               <motion.button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden p-2.5 rounded-xl bg-sps-indigo/5 text-sps-indigo"
@@ -165,6 +170,7 @@ const AdvancedHeader: React.FC = () => {
       </motion.header>
 
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </>
   );
 };
