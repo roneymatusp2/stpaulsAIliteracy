@@ -1,64 +1,92 @@
-# Netlify Configuration - Minimal Setup
+# Netlify Configuration for St. Paul's AI Literacy Platform
 
 [build]
+  # Build command
   command = "npm run build"
+  
+  # Directory with the build output
   publish = "dist"
+  
+  # Node version
+  environment = { NODE_VERSION = "18" }
 
-[build.environment]
-  NODE_VERSION = "22"
-  NPM_FLAGS = "--production=false"
-  NODE_OPTIONS = "--max-old-space-size=4096"
-
+# Redirect rules for SPA (Single Page Application)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
+# Headers for security and performance
 [[headers]]
   for = "/*"
   [headers.values]
+    # Security headers
     X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Cache-Control = "public, max-age=3600"
+    
+    # Cache control for HTML
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/assets/*"
   [headers.values]
+    # Cache static assets for 1 year
     Cache-Control = "public, max-age=31536000, immutable"
 
-[[redirects]]
-  from = "/tools"
-  to = "/en/tools"
-  status = 301
-  
-[[redirects]]
-  from = "/learn"
-  to = "/en/learn"
-  status = 301
-  
-[[redirects]]
-  from = "/library"
-  to = "/en/library"
-  status = 301
-  
-[[redirects]]
-  from = "/videos"
-  to = "/en/videos"
-  status = 301
-  
-[[redirects]]
-  from = "/about"
-  to = "/en/about"
-  status = 301
-  
-[[redirects]]
-  from = "/book-resources"
-  to = "/en/book-resources"
-  status = 301
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
 
-# Development settings
-[dev]
-  command = "npm run dev"
-  port = 5173
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Content-Type = "text/css; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Optimize images
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Environment variables (configure these in Netlify UI)
+# VITE_SUPABASE_URL
+# VITE_SUPABASE_ANON_KEY
+# VITE_SUPABASE_SERVICE_ROLE_KEY (for admin functions)
+
+# Build plugins
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  
+  # Optional: Lighthouse configuration
+  [plugins.inputs]
+    output_path = "reports/lighthouse.html"
+
+# Deploy contexts
+[context.production]
+  command = "npm run build"
+  
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.branch-deploy]
+  command = "npm run build"
+
+# Functions (if you add serverless functions later)
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
