@@ -23,20 +23,30 @@ O Netlify vai detectar automaticamente as configurações do `netlify.toml`:
 - **Publish directory:** `dist`
 - **Node version:** 18
 
-### 3. Configurar Variáveis de Ambiente
+### 3. Configurar Variáveis de Ambiente ⚠️ IMPORTANTE
 
 No painel do Netlify, vá em **Site settings** → **Environment variables** e adicione:
 
+**Variáveis OBRIGATÓRIAS:**
 ```
-VITE_SUPABASE_URL=sua_url_do_supabase
-VITE_SUPABASE_ANON_KEY=sua_chave_anonima
-VITE_SUPABASE_SERVICE_ROLE_KEY=sua_chave_service_role (opcional)
+VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+VITE_SUPABASE_ANON_KEY=sua_chave_anonima_aqui
+```
+
+**Variável OPCIONAL (apenas para admin):**
+```
+SUPABASE_SERVICE_ROLE_KEY=sua_chave_service_role (NÃO compartilhe!)
 ```
 
 **Onde encontrar essas variáveis:**
 1. Acesse seu projeto no [Supabase](https://supabase.com/dashboard)
 2. Vá em **Settings** → **API**
-3. Copie a **URL** e as **Keys**
+3. Copie:
+   - **Project URL** → use em `VITE_SUPABASE_URL`
+   - **anon/public key** → use em `VITE_SUPABASE_ANON_KEY`
+   - **service_role key** → use em `SUPABASE_SERVICE_ROLE_KEY` (opcional)
+
+⚠️ **ATENÇÃO:** Sem essas variáveis, o site vai dar erro! Configure antes do primeiro deploy.
 
 ### 4. Deploy
 
@@ -68,10 +78,19 @@ Pull requests geram automaticamente preview URLs para testar antes de mergear.
 
 ## Troubleshooting
 
+### ❌ Erro: "supabaseUrl is required"
+**Causa:** Variáveis de ambiente não configuradas no Netlify
+
+**Solução:**
+1. Vá em **Site settings** → **Environment variables**
+2. Adicione `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`
+3. Clique em **"Trigger deploy"** → **"Clear cache and deploy site"**
+
 ### Build falha?
 - Verifique se todas as variáveis de ambiente estão configuradas
 - Confirme que o Node version é 18
 - Veja os logs de build no Netlify
+- Certifique-se que as variáveis começam com `VITE_`
 
 ### Rotas não funcionam?
 - O `netlify.toml` já está configurado com redirects
@@ -80,6 +99,12 @@ Pull requests geram automaticamente preview URLs para testar antes de mergear.
 ### Variáveis de ambiente não funcionam?
 - Variáveis devem começar com `VITE_` para serem expostas no frontend
 - Após adicionar variáveis, faça um novo deploy
+- Use **"Clear cache and deploy site"** para garantir que as variáveis sejam aplicadas
+
+### Site carrega mas não mostra dados?
+- Verifique se o Supabase está configurado corretamente
+- Confirme que as tabelas existem no banco de dados
+- Verifique as políticas RLS (Row Level Security) no Supabase
 
 ## Comandos Úteis
 

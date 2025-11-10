@@ -7,8 +7,8 @@ const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
 let supabaseAdmin: ReturnType<typeof createClient> | null = null;
 
-// Only create admin client if service role key is available
-if (supabaseServiceKey) {
+// Only create admin client if both URL and service role key are available
+if (supabaseUrl && supabaseServiceKey) {
   supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
     auth: {
       autoRefreshToken: false,
@@ -16,7 +16,9 @@ if (supabaseServiceKey) {
     },
   });
 } else {
-  console.warn('⚠️ SUPABASE_SERVICE_ROLE_KEY not found. Admin operations will be limited.');
+  console.warn('⚠️ Supabase credentials not found. Admin operations will be limited.');
+  if (!supabaseUrl) console.warn('Missing: VITE_SUPABASE_URL');
+  if (!supabaseServiceKey) console.warn('Missing: SUPABASE_SERVICE_ROLE_KEY');
 }
 
 export { supabaseAdmin };
