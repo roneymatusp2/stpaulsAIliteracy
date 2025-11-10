@@ -3,10 +3,22 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Only create Supabase client if credentials are provided
-export const supabase = (supabaseUrl && supabaseAnonKey)
+// Check if we have valid Supabase credentials (not placeholders)
+const hasValidCredentials = 
+  supabaseUrl && 
+  supabaseAnonKey && 
+  !supabaseUrl.includes('placeholder') && 
+  !supabaseAnonKey.includes('placeholder');
+
+// Only create Supabase client if valid credentials are provided
+export const supabase = hasValidCredentials
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
+
+// Log warning if Supabase is not configured
+if (!hasValidCredentials) {
+  console.warn('⚠️ Supabase not configured. Using mock data. Configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
+}
 
 export interface Resource {
   id: string;
