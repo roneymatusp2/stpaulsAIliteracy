@@ -982,6 +982,368 @@ export const aiToolsData: Resource[] = [
     },
     created_at: '2024-06-25T10:00:00Z',
     updated_at: '2024-06-25T10:00:00Z'
+  },
+
+  // Visual AI Tools - Text to Diagrams, Infographics & Presentations
+  {
+    id: 'napkin-ai',
+    category: 'ai_tool',
+    title: 'Napkin AI',
+    description: 'Transforms text into simple visuals like diagrams and infographics for storytelling and social media.',
+    url: 'https://www.napkin.ai',
+    tags: ['Visual AI', 'Diagrams', 'Infographics', 'Storytelling'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Visual Content Generator',
+      pricing: 'Freemium model',
+      key_features: 'Text-to-visual conversion, diagrams, infographics, social media content',
+      ai_relevance: 'Quick visual storytelling for educational content and presentations',
+      future_potential: 'Democratizing visual communication for all educators'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'piktochart',
+    category: 'ai_tool',
+    title: 'Piktochart',
+    description: 'Generates infographics, reports and presentations from text prompts with customizable templates.',
+    url: 'https://piktochart.com',
+    tags: ['Infographics', 'Reports', 'Presentations', 'Templates'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Infographic Platform',
+      pricing: 'Freemium with pro features',
+      key_features: 'AI-generated infographics, customizable templates, data visualization',
+      ai_relevance: 'Professional infographics and reports for educational presentations',
+      future_potential: 'Automated visual report generation for educators'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'lucidchart',
+    category: 'ai_tool',
+    title: 'Lucidchart',
+    description: 'Creates professional diagrams, flowcharts and mind maps with AI for collaborative teams.',
+    url: 'https://www.lucidchart.com',
+    tags: ['Diagrams', 'Flowcharts', 'Mind Maps', 'Collaboration'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Diagramming Platform',
+      pricing: 'Free for education with premium tiers',
+      key_features: 'Professional diagrams, real-time collaboration, AI assistance',
+      ai_relevance: 'Collaborative visual planning and process documentation for education',
+      future_potential: 'Industry-standard diagramming with AI enhancement'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'miro',
+    category: 'ai_tool',
+    title: 'Miro',
+    description: 'Online whiteboard with AI to generate flows, mind maps and infographics in real-time.',
+    url: 'https://miro.com',
+    tags: ['Whiteboard', 'Mind Maps', 'Real-time', 'Collaboration'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Collaborative Whiteboard',
+      pricing: 'Free for education',
+      key_features: 'Infinite canvas, real-time collaboration, AI-powered templates',
+      ai_relevance: 'Interactive brainstorming and visual collaboration for classrooms',
+      future_potential: 'The future of collaborative visual thinking in education'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'prezi',
+    category: 'ai_tool',
+    title: 'Prezi',
+    description: 'Dynamic presentations with zoom and AI-generated infographics from text or data.',
+    url: 'https://prezi.com',
+    tags: ['Presentations', 'Dynamic', 'Zoom', 'Infographics'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Presentation Platform',
+      pricing: 'Free for education',
+      key_features: 'Non-linear presentations, zoom interface, AI content generation',
+      ai_relevance: 'Engaging, non-traditional presentations that capture student attention',
+      future_potential: 'Revolutionizing presentation design with spatial storytelling'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'notegpt-visual',
+    category: 'ai_tool',
+    title: 'NoteGPT Visual Generator',
+    description: 'Converts documents or prompts into infographics, mind maps and flashcards.',
+    url: 'https://notegpt.io/ai-visual-generator',
+    tags: ['Documents', 'Mind Maps', 'Flashcards', 'Study Tools'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Study Visual Generator',
+      pricing: 'Freemium model',
+      key_features: 'Document conversion, mind maps, flashcards, study aids',
+      ai_relevance: 'Transforming study materials into visual learning aids',
+      future_potential: 'Automated study material generation for enhanced learning'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'whimsical',
+    category: 'ai_tool',
+    title: 'Whimsical',
+    description: 'Collaboration on flowcharts, wireframes and mind maps with AI suggestions.',
+    url: 'https://whimsical.com',
+    tags: ['Flowcharts', 'Wireframes', 'Mind Maps', 'AI Suggestions'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Visual Collaboration Tool',
+      pricing: 'Free tier with pro options',
+      key_features: 'Fast diagramming, AI suggestions, clean interface',
+      ai_relevance: 'Quick visual planning and ideation for educational projects',
+      future_potential: 'Streamlined visual thinking with intelligent assistance'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'excalidraw',
+    category: 'ai_tool',
+    title: 'Excalidraw',
+    description: 'Hand-drawn style diagrams with AI support for quick collaborative editing.',
+    url: 'https://excalidraw.com',
+    tags: ['Hand-drawn', 'Sketches', 'Collaborative', 'Open Source'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Sketch-style Diagramming',
+      pricing: 'Free and open source',
+      key_features: 'Hand-drawn aesthetic, real-time collaboration, privacy-focused',
+      ai_relevance: 'Informal, approachable visual communication for education',
+      future_potential: 'Combining casual aesthetics with professional functionality'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'heptabase',
+    category: 'ai_tool',
+    title: 'Heptabase',
+    description: 'Visual knowledge management with AI-powered concept maps and note linking.',
+    url: 'https://heptabase.com',
+    tags: ['Knowledge Management', 'Concept Maps', 'Note Linking', 'Visual Thinking'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Visual Knowledge Platform',
+      pricing: 'Subscription-based',
+      key_features: 'Visual note-taking, concept mapping, knowledge graphs',
+      ai_relevance: 'Organizing complex educational concepts visually',
+      future_potential: 'Next-generation knowledge management for deep learning'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'visualgpt',
+    category: 'ai_tool',
+    title: 'VisualGPT',
+    description: 'Generates complete diagrams, infographics and storyboards from simple text.',
+    url: 'https://visualgpt.io',
+    tags: ['Diagrams', 'Infographics', 'Storyboards', 'Text-to-Visual'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'AI Visual Generator',
+      pricing: 'Usage-based pricing',
+      key_features: 'Complete visual generation, multiple formats, AI-powered',
+      ai_relevance: 'Comprehensive visual content creation from text descriptions',
+      future_potential: 'End-to-end visual storytelling automation'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'edrawmax',
+    category: 'ai_tool',
+    title: 'EdrawMax',
+    description: 'Over 200 diagram types (Gantt, ER, flows) generated by AI with advanced editing.',
+    url: 'https://www.edrawmax.wondershare.com',
+    tags: ['200+ Diagrams', 'Gantt', 'ER Diagrams', 'Professional'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Professional Diagramming Suite',
+      pricing: 'Subscription with free trial',
+      key_features: '200+ diagram types, AI generation, professional templates',
+      ai_relevance: 'Comprehensive diagramming solution for all educational needs',
+      future_potential: 'Universal visual communication tool for education'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'visily',
+    category: 'ai_tool',
+    title: 'Visily',
+    description: 'Transforms text, sketches or screenshots into editable wireframes and diagrams.',
+    url: 'https://www.visily.ai',
+    tags: ['Wireframes', 'Sketches', 'Screenshots', 'UI Design'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'AI Wireframe Tool',
+      pricing: 'Freemium model',
+      key_features: 'Multi-input conversion, wireframe generation, UI design',
+      ai_relevance: 'Rapid prototyping and UI design for educational apps',
+      future_potential: 'Bridging concept and design with AI transformation'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'diagramgpt',
+    category: 'ai_tool',
+    title: 'DiagramGPT',
+    description: 'Uses GPT-4 to create flowcharts, ER diagrams and sequences from prompts or code.',
+    url: 'https://www.eraser.io/diagramgpt',
+    tags: ['GPT-4', 'Flowcharts', 'ER Diagrams', 'Code-to-Diagram'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'AI Diagram Generator',
+      pricing: 'Freemium with credits',
+      key_features: 'GPT-4 powered, code understanding, technical diagrams',
+      ai_relevance: 'Technical diagram generation for computer science education',
+      future_potential: 'Automated technical documentation and visualization'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'mymap-ai',
+    category: 'ai_tool',
+    title: 'MyMap.AI',
+    description: 'Creates mind maps, SWOT analysis and storyboards via AI chat with PDF and link support.',
+    url: 'https://www.mymap.ai',
+    tags: ['Mind Maps', 'SWOT', 'Storyboards', 'Chat Interface'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'AI Mapping Platform',
+      pricing: 'Freemium model',
+      key_features: 'Chat-based creation, PDF support, multiple formats',
+      ai_relevance: 'Conversational visual creation for strategic planning',
+      future_potential: 'Natural language visual thinking and analysis'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'venngage',
+    category: 'ai_tool',
+    title: 'Venngage',
+    description: 'Professional infographic generator with AI-powered automatic layout adaptation.',
+    url: 'https://venngage.com',
+    tags: ['Infographics', 'Professional', 'Auto Layout', 'Templates'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Infographic Platform',
+      pricing: 'Freemium with business tiers',
+      key_features: 'Professional templates, AI layout, brand customization',
+      ai_relevance: 'High-quality infographics for educational marketing and communication',
+      future_potential: 'Automated professional visual communication'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'visme',
+    category: 'ai_tool',
+    title: 'Visme',
+    description: 'Interactive infographics with animations and data import for visualizations.',
+    url: 'https://visme.co',
+    tags: ['Interactive', 'Animations', 'Data Visualization', 'Infographics'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Interactive Visual Platform',
+      pricing: 'Freemium with pro features',
+      key_features: 'Interactive content, animations, data integration',
+      ai_relevance: 'Engaging interactive educational content and data stories',
+      future_potential: 'Dynamic, data-driven educational visualizations'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'infogram',
+    category: 'ai_tool',
+    title: 'Infogram',
+    description: 'Data-focused tool generating interactive charts and maps from spreadsheets or text.',
+    url: 'https://infogram.com',
+    tags: ['Data Visualization', 'Charts', 'Maps', 'Interactive'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Data Visualization Platform',
+      pricing: 'Freemium with team plans',
+      key_features: 'Data import, interactive charts, map visualization',
+      ai_relevance: 'Data storytelling and statistical visualization for education',
+      future_potential: 'Making data accessible and understandable through visualization'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'text2infographic',
+    category: 'ai_tool',
+    title: 'Text2Infographic',
+    description: 'Converts text, URLs or files into multilingual editable infographics.',
+    url: 'https://text2infographic.com',
+    tags: ['Text Conversion', 'Multilingual', 'URL Import', 'Editable'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Text-to-Infographic Converter',
+      pricing: 'Usage-based',
+      key_features: 'Multiple input formats, multilingual support, editable output',
+      ai_relevance: 'Quick infographic creation from any text source',
+      future_potential: 'Universal text-to-visual conversion for global education'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'infografix',
+    category: 'ai_tool',
+    title: 'Infografix',
+    description: 'Free quick infographics like timelines and processes with customizable fonts and colors.',
+    url: 'https://infografix.app',
+    tags: ['Free', 'Timelines', 'Processes', 'Quick Creation'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Quick Infographic Tool',
+      pricing: 'Free',
+      key_features: 'Fast creation, timeline focus, process visualization',
+      ai_relevance: 'Quick visual timelines and process diagrams for lessons',
+      future_potential: 'Accessible visual communication for all educators'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
+  },
+  {
+    id: 'gamma-app',
+    category: 'ai_tool',
+    title: 'Gamma',
+    description: 'Scrollable presentations with AI-generated visuals, charts and interactivity.',
+    url: 'https://gamma.app',
+    tags: ['Presentations', 'Scrollable', 'Interactive', 'AI Visuals'],
+    cover_url: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=400',
+    provider_meta: {
+      type: 'Modern Presentation Platform',
+      pricing: 'Freemium model',
+      key_features: 'Scrollable format, AI content generation, interactive elements',
+      ai_relevance: 'Next-generation presentations that work like websites',
+      future_potential: 'Redefining presentation format for digital-native learners'
+    },
+    created_at: '2025-01-10T10:00:00Z',
+    updated_at: '2025-01-10T10:00:00Z'
   }
 ];
 
@@ -1035,6 +1397,18 @@ export const aiToolCategories = [
     icon: '🎓',
     tools: aiToolsData.filter(tool => 
       ['magicschool-ai', 'google-gemini-education', 'google-ai-studio', 'moodle-ai', 'qgis-geoai'].includes(tool.id)
+    )
+  },
+  {
+    id: 'visual-ai',
+    name: 'Visual AI Tools - Diagrams & Infographics',
+    description: 'Transform text into stunning visuals: diagrams, infographics, mind maps, flowcharts and presentations.',
+    icon: '📊',
+    tools: aiToolsData.filter(tool => 
+      ['napkin-ai', 'piktochart', 'lucidchart', 'miro', 'prezi', 'notegpt-visual', 
+       'whimsical', 'excalidraw', 'heptabase', 'visualgpt', 'edrawmax', 'visily',
+       'diagramgpt', 'mymap-ai', 'venngage', 'visme', 'infogram', 'text2infographic',
+       'infografix', 'gamma-app'].includes(tool.id)
     )
   }
 ];

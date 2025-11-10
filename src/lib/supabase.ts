@@ -3,7 +3,10 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Only create Supabase client if credentials are provided
+export const supabase = (supabaseUrl && supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 export interface Resource {
   id: string;
@@ -72,6 +75,11 @@ export interface PipelineLog {
 
 // Fetch AI News
 export const fetchAINews = async (category?: string, limit = 20) => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning empty array.');
+    return [];
+  }
+
   let query = supabase
     .from('ai_news')
     .select('*')
@@ -90,6 +98,11 @@ export const fetchAINews = async (category?: string, limit = 20) => {
 
 // Fetch Featured News
 export const fetchFeaturedNews = async () => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning null.');
+    return null;
+  }
+
   const { data, error } = await supabase
     .from('ai_news')
     .select('*')
@@ -105,6 +118,11 @@ export const fetchFeaturedNews = async () => {
 
 // Increment article view count
 export const incrementViewCount = async (articleId: string) => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Cannot increment view count.');
+    return;
+  }
+
   const { error } = await supabase.rpc('increment_view_count', {
     article_id: articleId
   });
@@ -114,6 +132,10 @@ export const incrementViewCount = async (articleId: string) => {
 
 // Trigger manual news fetch
 export const triggerNewsFetch = async () => {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+  }
+
   const { data, error } = await supabase.functions.invoke('fetch-ai-news', {
     body: { trigger: 'manual' }
   });
@@ -124,6 +146,10 @@ export const triggerNewsFetch = async () => {
 
 // Trigger manual summary processing
 export const triggerSummaryProcessing = async () => {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+  }
+
   const { data, error } = await supabase.functions.invoke('process-ai-summaries', {
     body: { trigger: 'manual' }
   });
@@ -134,6 +160,11 @@ export const triggerSummaryProcessing = async () => {
 
 // Fetch pipeline logs
 export const fetchPipelineLogs = async (operation?: string, limit = 50) => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning empty array.');
+    return [];
+  }
+
   let query = supabase
     .from('pipeline_logs')
     .select('*')
@@ -151,6 +182,11 @@ export const fetchPipelineLogs = async (operation?: string, limit = 50) => {
 
 // News Sources Management
 export const fetchNewsSources = async () => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning empty array.');
+    return [];
+  }
+
   const { data, error } = await supabase
     .from('news_sources')
     .select('*')
@@ -161,6 +197,10 @@ export const fetchNewsSources = async () => {
 };
 
 export const updateNewsSource = async (id: string, updates: Partial<NewsSource>) => {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+  }
+
   const { data, error } = await supabase
     .from('news_sources')
     .update(updates as Record<string, unknown>)

@@ -17,10 +17,18 @@ export const debugAINewsSystem = async () => {
     
     if (!supabaseUrl || !supabaseKey) {
       debug.errors.push('Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY environment variables');
-    } else {
-      debug.supabaseConfig = true;
-      console.log('✅ Supabase config found');
+      console.error('❌ Supabase environment variables not configured');
+      return debug;
     }
+
+    if (!supabase) {
+      debug.errors.push('Supabase client failed to initialize');
+      console.error('❌ Supabase client is null');
+      return debug;
+    }
+
+    debug.supabaseConfig = true;
+    console.log('✅ Supabase config found');
 
     // 2. Check if tables exist and are accessible
     console.log('🔍 Checking database tables...');

@@ -41,6 +41,11 @@ const AINewsSection: React.FC = () => {
   }, [selectedCategory]);
 
   const checkLastFetchTime = async () => {
+    if (!supabase) {
+      console.log('Supabase client not initialized');
+      return;
+    }
+
     try {
       const { data, error } = await supabase
         .from('pipeline_logs')
@@ -60,6 +65,12 @@ const AINewsSection: React.FC = () => {
   };
 
   const fetchAINews = async () => {
+    if (!supabase) {
+      console.log('Supabase client not initialized. Skipping news fetch.');
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       
@@ -126,6 +137,11 @@ const AINewsSection: React.FC = () => {
   };
 
   const triggerNewsFetch = async () => {
+    if (!supabase) {
+      alert('Supabase client not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your environment variables.');
+      return;
+    }
+
     try {
       setIsManuallyFetching(true);
       console.log('🔄 Starting manual news fetch...');
@@ -156,6 +172,11 @@ const AINewsSection: React.FC = () => {
   };
 
   const triggerSummaryProcessing = async () => {
+    if (!supabase) {
+      alert('Supabase client not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your environment variables.');
+      return;
+    }
+
     try {
       setIsProcessingSummaries(true);
       console.log('🤖 Starting AI summary processing...');
@@ -187,10 +208,12 @@ const AINewsSection: React.FC = () => {
   const handleArticleClick = async (article: AINewsItem) => {
     try {
       // Increment view count for real articles
-      await supabase
-        .from('ai_news')
-        .update({ view_count: article.view_count + 1 })
-        .eq('id', article.id);
+      if (supabase) {
+        await supabase
+          .from('ai_news')
+          .update({ view_count: article.view_count + 1 })
+          .eq('id', article.id);
+      }
 
       // Open article in new tab
       window.open(article.source_url, '_blank');

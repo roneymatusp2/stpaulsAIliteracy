@@ -26,8 +26,8 @@ const AdvancedHeader: React.FC = () => {
 
   const headerVariants = {
     top: {
-      backgroundColor: 'rgba(255, 255, 255, 0)',
-      borderBottom: '1px solid transparent',
+      backgroundColor: 'rgba(0, 29, 49, 0.7)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
       padding: '1.25rem 0'
     },
     scrolled: {
@@ -66,29 +66,35 @@ const AdvancedHeader: React.FC = () => {
                   />
                 </div>
                 <div className="hidden sm:block">
-                  <p className="text-xs uppercase tracking-[0.3em] text-sps-indigo/80">
+                  <p className={`text-xs uppercase tracking-[0.3em] transition-colors duration-300 ${
+                    isScrolled ? 'text-sps-indigo/80' : 'text-white/90'
+                  }`}>
                     St. Paul's School · São Paulo
                   </p>
-                  <p className="text-lg font-heading font-semibold text-sps-indigo">
+                  <p className={`text-lg font-heading font-semibold transition-colors duration-300 ${
+                    isScrolled ? 'text-sps-indigo' : 'text-white'
+                  }`}>
                     AI Learning Platform
                   </p>
                 </div>
               </Link>
             </motion.div>
 
-            <nav className="hidden md:flex items-center space-x-1">
+            <nav className="hidden lg:flex items-center space-x-0.5">
               {navItems.map((item) => (
                 <motion.div key={item.label} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     to={item.href}
-                    className={`relative px-4 py-2 rounded-xl font-medium transition-all duration-200 flex items-center space-x-1 text-sm ${
+                    className={`relative px-3 py-2 rounded-xl font-medium transition-all duration-200 flex items-center space-x-2 text-sm ${
                       location.pathname === item.href
                         ? 'bg-gradient-to-r from-sps-ruby to-sps-indigo text-white shadow-lg shadow-sps-indigo/20'
-                        : 'text-sps-indigo/80 hover:text-sps-indigo hover:bg-sps-indigo/5'
+                        : isScrolled 
+                          ? 'text-sps-indigo/80 hover:text-sps-indigo hover:bg-sps-indigo/5'
+                          : 'text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm'
                     }`}
                   >
-                    <span className="text-xs" aria-hidden="true">{item.icon}</span>
-                    <span>{item.label}</span>
+                    <span className="text-base" aria-hidden="true">{item.icon}</span>
+                    <span className="whitespace-nowrap font-semibold">{item.label}</span>
                   </Link>
                 </motion.div>
               ))}
@@ -97,7 +103,11 @@ const AdvancedHeader: React.FC = () => {
             <div className="flex items-center space-x-2">
               <motion.button
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2.5 rounded-xl bg-sps-indigo/5 text-sps-indigo hover:bg-sps-indigo/10 transition-all duration-200"
+                className={`p-2.5 rounded-xl transition-all duration-200 ${
+                  isScrolled 
+                    ? 'bg-sps-indigo/5 text-sps-indigo hover:bg-sps-indigo/10'
+                    : 'bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm'
+                }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Search platform"
@@ -111,7 +121,11 @@ const AdvancedHeader: React.FC = () => {
 
               <motion.button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2.5 rounded-xl bg-sps-indigo/5 text-sps-indigo"
+                className={`md:hidden p-2.5 rounded-xl transition-all duration-200 ${
+                  isScrolled
+                    ? 'bg-sps-indigo/5 text-sps-indigo'
+                    : 'bg-white/10 text-white backdrop-blur-sm'
+                }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Toggle navigation menu"
