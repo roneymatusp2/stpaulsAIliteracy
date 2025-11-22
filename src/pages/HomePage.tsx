@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import FloatingCardGrid from '../components/FloatingCardGrid';
 import AINewsSection from '../components/AINewsSection';
-import { mockResources } from '../lib/supabase';
+import { mockResources, fetchAILiteracySkills, type AILiteracySkill } from '../lib/supabase';
 
 const HomePage: React.FC = () => {
   const featuredResources = mockResources.slice(0, 6);
+  const [aiLiteracySkills, setAiLiteracySkills] = useState<AILiteracySkill[]>([]);
+
+  useEffect(() => {
+    const loadSkills = async () => {
+      try {
+        const skills = await fetchAILiteracySkills();
+        setAiLiteracySkills(skills);
+      } catch (error) {
+        console.error('Error loading AI Literacy skills:', error);
+      }
+    };
+    loadSkills();
+  }, []);
 
   const focusAreas = [
     {
@@ -67,6 +80,208 @@ const HomePage: React.FC = () => {
 
   return (
     <>
+      {/* St. Paul's AI Literacy Course Section - TOP PRIORITY */}
+      <section className="py-24 bg-gradient-to-br from-sps-indigo via-sps-ruby to-sps-green relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 opacity-10">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={`particle-${i}`}
+              className="absolute w-2 h-2 bg-white rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.8, 0.3],
+                scale: [1, 1.5, 1]
+              }}
+              transition={{
+                duration: 3 + i * 0.3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-6 py-2 rounded-full mb-6 border border-white/30">
+              <span className="text-yellow-400 text-2xl">🏆</span>
+              <span className="text-white text-sm uppercase tracking-[0.3em] font-bold">
+                Earn Your Certification
+              </span>
+            </div>
+
+            <h2 className="text-5xl md:text-6xl font-heading font-bold text-white mb-6">
+              St. Paul's AI Literacy
+            </h2>
+
+            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-10">
+              A comprehensive professional learning programme designed for K-12 educators
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-16">
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white/20 backdrop-blur-md px-4 py-4 rounded-2xl border border-white/30 shadow-lg"
+              >
+                <div className="flex flex-col items-center gap-2 text-center">
+                  <span className="text-3xl">📚</span>
+                  <span className="text-white font-bold text-sm">8 Expert-Led</span>
+                  <span className="text-white/80 text-xs">Lessons</span>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white/20 backdrop-blur-md px-4 py-4 rounded-2xl border border-white/30 shadow-lg"
+              >
+                <div className="flex flex-col items-center gap-2 text-center">
+                  <span className="text-3xl">🎯</span>
+                  <span className="text-white font-bold text-sm">7 Core</span>
+                  <span className="text-white/80 text-xs">AI Skills</span>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white/20 backdrop-blur-md px-4 py-4 rounded-2xl border border-white/30 shadow-lg"
+              >
+                <div className="flex flex-col items-center gap-2 text-center">
+                  <span className="text-3xl">🏅</span>
+                  <span className="text-white font-bold text-sm">Digital</span>
+                  <span className="text-white/80 text-xs">Badges</span>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white/20 backdrop-blur-md px-4 py-4 rounded-2xl border border-white/30 shadow-lg"
+              >
+                <div className="flex flex-col items-center gap-2 text-center">
+                  <span className="text-3xl">📜</span>
+                  <span className="text-white font-bold text-sm">Official</span>
+                  <span className="text-white/80 text-xs">Certificate</span>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* The 7 Core Skills */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-16"
+          >
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-heading font-bold text-white mb-3">
+                Master the 7 Core AI Literacy Skills
+              </h3>
+              <p className="text-white/80 text-lg">
+                Based on the OECD, European Commission, and Code.org framework
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {aiLiteracySkills.slice(0, 7).map((skill, index) => (
+                <motion.div
+                  key={skill.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#820021] to-[#002718] rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        {index + 1}
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-white mb-2">
+                        {skill.name}
+                      </h4>
+                      <p className="text-blue-100 text-sm leading-relaxed">
+                        {skill.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Certification & Badges Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center bg-white/5 rounded-2xl p-6 border border-white/10"
+              >
+                <div className="text-6xl mb-4">🎓</div>
+                <h4 className="text-2xl font-bold text-white mb-3">Professional Certificate</h4>
+                <p className="text-white/80 leading-relaxed">
+                  Earn an official St. Paul's certificate upon successful completion of the assessment
+                </p>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center bg-white/5 rounded-2xl p-6 border border-white/10"
+              >
+                <div className="text-6xl mb-4">🏅</div>
+                <h4 className="text-2xl font-bold text-white mb-3">Digital Badges</h4>
+                <p className="text-white/80 leading-relaxed">
+                  Collect skill badges as you progress through each of the 7 core competencies
+                </p>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center bg-white/5 rounded-2xl p-6 border border-white/10"
+              >
+                <div className="text-6xl mb-4">📊</div>
+                <h4 className="text-2xl font-bold text-white mb-3">Progress Tracking</h4>
+                <p className="text-white/80 leading-relaxed">
+                  Monitor your learning journey with personalised dashboards and analytics
+                </p>
+              </motion.div>
+            </div>
+
+            <div className="text-center">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  to="/ai-literacy-course"
+                  className="inline-flex items-center gap-3 px-10 py-5 bg-white hover:bg-gray-50 text-[#820021] text-lg font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 border-2 border-white/50"
+                >
+                  <span>🚀</span>
+                  Start Your AI Literacy Journey
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+              </motion.div>
+              <p className="text-white/90 mt-4 text-sm font-semibold">
+                Free for all St. Paul's staff • Self-paced learning • Expert support available
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <Hero />
       <AINewsSection />
 
