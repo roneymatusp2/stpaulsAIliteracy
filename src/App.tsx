@@ -8,6 +8,8 @@ import LearnPage from './pages/LearnPage';
 import LibraryPage from './pages/LibraryPage';
 import VideosPage from './pages/VideosPage';
 import AboutPage from './pages/AboutPage';
+import AILiteracyCoursePage from './pages/AILiteracyCoursePage';
+import ProfilePage from './pages/ProfilePage';
 import AnimatedBackground from './components/AnimatedBackground';
 import ErrorBoundary from './components/ErrorBoundary';
 import PerformanceMonitor from './components/PerformanceMonitor';
@@ -68,9 +70,11 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/tools" element={<ToolsPage />} />
                 <Route path="/learn" element={<LearnPage />} />
+                <Route path="/ai-literacy-course" element={<AILiteracyCoursePage />} />
                 <Route path="/library" element={<LibraryPage />} />
                 <Route path="/videos" element={<VideosPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
               </Routes>
             </motion.div>
           </AnimatePresence>

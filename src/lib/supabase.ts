@@ -321,3 +321,182 @@ export const getShortLink = (resourceId: string): string => {
   const baseUrl = window.location.origin;
   return `${baseUrl}/r/${resourceId}`;
 };
+
+// AI Literacy Course Types and Functions
+export interface AILiteracySkill {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  icon?: string;
+  thinking_framework_url?: string;
+  order_index: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AILiteracyLesson {
+  id: string;
+  title: string;
+  slug: string;
+  description?: string;
+  skill_id: string;
+  skill?: AILiteracySkill;
+  video_url?: string;
+  video_duration_minutes?: number;
+  content_markdown?: string;
+  exercises: any[];
+  resources: any[];
+  order_index: number;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AILiteracyProgress {
+  id: string;
+  user_id: string;
+  lesson_id: string;
+  status: 'not_started' | 'in_progress' | 'completed';
+  started_at?: string;
+  completed_at?: string;
+  time_spent_minutes: number;
+  notes?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AILiteracyAssessment {
+  id: string;
+  title: string;
+  description?: string;
+  questions: any[];
+  passing_score: number;
+  time_limit_minutes: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AILiteracyCertificate {
+  id: string;
+  user_id: string;
+  assessment_attempt_id: string;
+  certificate_number: string;
+  issued_at: string;
+  valid_until?: string;
+  created_at: string;
+}
+
+// Fetch all AI Literacy skills
+export const fetchAILiteracySkills = async (): Promise<AILiteracySkill[]> => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning empty array.');
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('ai_literacy_skills')
+    .select('*')
+    .order('order_index');
+
+  if (error) throw error;
+  return data as AILiteracySkill[];
+};
+
+// Fetch all published lessons with their skills
+export const fetchAILiteracyLessons = async (): Promise<AILiteracyLesson[]> => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning empty array.');
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('ai_literacy_lessons')
+    .select(`
+      *,
+      skill:ai_literacy_skills(*)
+    `)
+    .eq('is_published', true)
+    .order('order_index');
+
+  if (error) throw error;
+  return data as any[];
+};
+
+// Fetch a single lesson by slug
+export const fetchAILiteracyLessonBySlug = async (slug: string): Promise<AILiteracyLesson | null> => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning null.');
+    return null;
+  }
+
+  const { data, error } = await supabase
+    .from('ai_literacy_lessons')
+    .select(`
+      *,
+      skill:ai_literacy_skills(*)
+    `)
+    .eq('slug', slug)
+    .eq('is_published', true)
+    .single();
+
+  if (error && error.code !== 'PGRST116') throw error;
+  return data as AILiteracyLesson | null;
+};
+
+// Fetch user progress for all lessons
+export const fetchUserAILiteracyProgress = async (userId: string): Promise<AILiteracyProgress[]> => {
+  if (!supabase) {
+    console.warn('Supabase client not initialized. Returning empty array.');
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('ai_literacy_progress')
+    .select('*')
+    .eq('user_id', userId);
+
+  if (error) throw error;
+  return data as AILiteracyProgress[];
+};
+
+// Update lesson progress
+export const updateLessonProgress = async (
+  userId: string,
+  lessonId: string,
+  status: 'not_started' | 'in_progress' | 'completed',
+  timeSpentMinutes?: number
+): Promise<AILiteracyProgress> => {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized.');
+  }
+
+  const updateData: any = {
+    user_id: userId,
+    lesson_id: lessonId,
+    status,
+    updated_at: new Date().toISOString()
+  };
+
+  if (status === 'in_progress' && !updateData.started_at) {
+    updateData.started_at = new Date().toISOString();
+  }
+
+  if (status === 'completed') {
+    updateData.completed_at = new Date().toISOString();
+  }
+
+  if (timeSpentMinutes !== undefined) {
+    updateData.time_spent_minutes = timeSpentMinutes;
+  }
+
+  const { data, error } = await supabase
+    .from('ai_literacy_progress')
+    .upsert(updateData)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as AILiteracyProgress;
+};
