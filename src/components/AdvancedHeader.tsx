@@ -3,6 +3,9 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle';
 import SearchModal from './SearchModal';
+import { XPBar, StreakCounter } from './gamification';
+import { useGamification } from '../providers';
+import { useGamificationStore } from '../stores/gamificationStore';
 
 const navItems = [
   { label: 'AI Tools', href: '/', icon: '🤖' },
@@ -19,6 +22,8 @@ const AdvancedHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const location = useLocation();
+  const { user, showAuthModal } = useGamification();
+  const xp = useGamificationStore((state) => state.xp);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setIsScrolled(latest > 40);
@@ -119,9 +124,51 @@ const AdvancedHeader: React.FC = () => {
 
               <DarkModeToggle />
 
+              {/* Profile / Sign In Button */}
+              {user ? (
+                <Link to="/profile">
+                  <motion.div
+                    className={`hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${
+                      isScrolled
+                        ? 'bg-gradient-to-r from-sps-ruby/10 to-sps-indigo/10 hover:from-sps-ruby/20 hover:to-sps-indigo/20'
+                        : 'bg-white/10 hover:bg-white/20 backdrop-blur-sm'
+                    }`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <StreakCounter compact />
+                      <div className={`h-4 w-px ${isScrolled ? 'bg-sps-indigo/20' : 'bg-white/30'}`} />
+                      <XPBar compact />
+                    </div>
+                    <div className={`w-8 h-8 rounded-full bg-gradient-to-br from-sps-ruby to-sps-indigo flex items-center justify-center text-white text-xs font-bold ${
+                      isScrolled ? 'shadow-md' : ''
+                    }`}>
+                      {xp?.current_level || 1}
+                    </div>
+                  </motion.div>
+                </Link>
+              ) : (
+                <motion.button
+                  onClick={showAuthModal}
+                  className={`hidden sm:flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                    isScrolled
+                      ? 'bg-gradient-to-r from-sps-ruby to-sps-indigo text-white hover:shadow-lg hover:shadow-sps-indigo/30'
+                      : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span>Sign In</span>
+                </motion.button>
+              )}
+
               <motion.button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`md:hidden p-2.5 rounded-xl transition-all duration-200 ${
+                className={`lg:hidden p-2.5 rounded-xl transition-all duration-200 ${
                   isScrolled
                     ? 'bg-sps-indigo/5 text-sps-indigo'
                     : 'bg-white/10 text-white backdrop-blur-sm'
@@ -174,6 +221,48 @@ const AdvancedHeader: React.FC = () => {
                 </Link>
               </motion.div>
             ))}
+
+            {/* Mobile Profile / Sign In */}
+            <motion.div
+              initial={{ x: -40, opacity: 0 }}
+              animate={{ x: isMenuOpen ? 0 : -40, opacity: isMenuOpen ? 1 : 0 }}
+              transition={{ delay: navItems.length * 0.05, duration: 0.25 }}
+              className="pt-2 border-t border-sps-indigo/10"
+            >
+              {user ? (
+                <Link
+                  to="/profile"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`flex items-center justify-between px-3 py-2.5 rounded-xl font-medium transition-all ${
+                    location.pathname === '/profile'
+                      ? 'bg-gradient-to-r from-sps-ruby to-sps-indigo text-white'
+                      : 'text-sps-indigo hover:bg-sps-indigo/5'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <span className="text-sm" aria-hidden="true">👤</span>
+                    <span>My Profile</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <StreakCounter compact />
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-sps-ruby to-sps-indigo flex items-center justify-center text-white text-xs font-bold">
+                      {xp?.current_level || 1}
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    showAuthModal();
+                  }}
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium bg-gradient-to-r from-sps-ruby to-sps-indigo text-white"
+                >
+                  <span className="text-sm" aria-hidden="true">🔐</span>
+                  <span>Sign In / Register</span>
+                </button>
+              )}
+            </motion.div>
           </div>
         </motion.div>
       </motion.header>

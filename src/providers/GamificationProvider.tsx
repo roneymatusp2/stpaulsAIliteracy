@@ -12,7 +12,10 @@ import type { Badge } from '../types/gamification';
 // CONTEXT
 // ============================================================================
 
+import type { User } from '@supabase/supabase-js';
+
 interface GamificationContextValue {
+  user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   showAuthModal: () => void;
@@ -40,6 +43,7 @@ interface GamificationProviderProps {
 
 export function GamificationProvider({ children }: GamificationProviderProps) {
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authUser, setAuthUser] = useState<User | null>(null);
 
   // Zustand store selectors
   const isAuthenticated = useGamificationStore((state) => state.isAuthenticated);
@@ -73,6 +77,7 @@ export function GamificationProvider({ children }: GamificationProviderProps) {
         const { data: { session } } = await supabase.auth.getSession();
 
         if (session?.user) {
+          setAuthUser(session.user);
           await fetchUserData(session.user.id);
         }
 
@@ -97,9 +102,11 @@ export function GamificationProvider({ children }: GamificationProviderProps) {
         console.log('Auth event:', event);
 
         if (event === 'SIGNED_IN' && session?.user) {
+          setAuthUser(session.user);
           await fetchUserData(session.user.id);
           setAuthModalOpen(false);
         } else if (event === 'SIGNED_OUT') {
+          setAuthUser(null);
           signOutStore();
         }
       }
@@ -122,6 +129,7 @@ export function GamificationProvider({ children }: GamificationProviderProps) {
 
   // Context value
   const contextValue: GamificationContextValue = {
+    user: authUser,
     isAuthenticated,
     isLoading,
     showAuthModal,

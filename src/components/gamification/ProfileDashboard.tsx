@@ -225,7 +225,7 @@ export function ProfileDashboard({
               <StatRow
                 icon={Calendar}
                 label="Member since"
-                value={new Date(user.created_at).toLocaleDateString('en-GB', {
+                value={new Date(user.joined_at || user.created_at || new Date()).toLocaleDateString('en-GB', {
                   month: 'short',
                   year: 'numeric',
                 })}

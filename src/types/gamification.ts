@@ -64,6 +64,7 @@ export interface UserProfile {
   role: 'teacher' | 'department_head' | 'administrator' | 'guest';
   bio?: string;
   joined_at: string;
+  created_at?: string;
   last_active_at: string;
   preferences: UserPreferences;
   is_public: boolean;
@@ -194,12 +195,14 @@ export interface SkillNode {
   description?: string;
   tier: 1 | 2 | 3 | 4 | 5;
   xp_reward: number;
-  prerequisites: string[];
-  lesson_ids: string[];
+  prerequisites?: string[];
+  lesson_ids?: string[];
   assessment_id?: string;
-  estimated_minutes: number;
-  is_locked: boolean;
-  sort_order: number;
+  estimated_minutes?: number;
+  is_locked?: boolean;
+  is_milestone?: boolean;
+  sort_order?: number;
+  order_index?: number;
 }
 
 export interface UserSkillProgress {
@@ -485,3 +488,38 @@ export const XP_REWARDS = {
   ENDORSEMENT_RECEIVED: 15,
   FIRST_OF_DAY: 25,
 } as const;
+
+// ============================================================================
+// LEVEL THRESHOLDS
+// ============================================================================
+
+export const LEVEL_THRESHOLDS: LevelThreshold[] = [
+  { level: 1, xp_required: 0, rank: 'AI Apprentice', title: 'Newcomer', unlocks: ['Basic tutorials'] },
+  { level: 2, xp_required: 50, rank: 'AI Apprentice', title: 'Learner', unlocks: [] },
+  { level: 3, xp_required: 100, rank: 'AI Apprentice', title: 'Explorer', unlocks: [] },
+  { level: 4, xp_required: 175, rank: 'AI Apprentice', title: 'Student', unlocks: [] },
+  { level: 5, xp_required: 275, rank: 'AI Apprentice', title: 'Beginner', unlocks: ['Intermediate content'] },
+  { level: 6, xp_required: 400, rank: 'AI Apprentice', title: 'Novice', unlocks: [] },
+  { level: 7, xp_required: 600, rank: 'AI Apprentice', title: 'Initiate', unlocks: [] },
+  { level: 8, xp_required: 750, rank: 'AI Practitioner', title: 'Practitioner', unlocks: ['AI Practitioner badge'] },
+  { level: 9, xp_required: 1000, rank: 'AI Practitioner', title: 'Developer', unlocks: [] },
+  { level: 10, xp_required: 1300, rank: 'AI Practitioner', title: 'Implementer', unlocks: ['Advanced content'] },
+  { level: 11, xp_required: 1650, rank: 'AI Practitioner', title: 'Contributor', unlocks: [] },
+  { level: 12, xp_required: 2000, rank: 'AI Practitioner', title: 'Builder', unlocks: [] },
+  { level: 13, xp_required: 2250, rank: 'AI Practitioner', title: 'Craftsman', unlocks: [] },
+  { level: 14, xp_required: 2500, rank: 'AI Practitioner', title: 'Artisan', unlocks: [] },
+  { level: 15, xp_required: 3000, rank: 'AI Specialist', title: 'Specialist', unlocks: ['AI Specialist badge'] },
+  { level: 20, xp_required: 5000, rank: 'AI Specialist', title: 'Expert', unlocks: ['Expert content'] },
+  { level: 25, xp_required: 10500, rank: 'AI Champion', title: 'Champion', unlocks: ['AI Champion badge'] },
+  { level: 30, xp_required: 17500, rank: 'AI Champion', title: 'Leader', unlocks: ['Leadership features'] },
+  { level: 35, xp_required: 27000, rank: 'AI Architect', title: 'Architect', unlocks: ['AI Architect badge'] },
+  { level: 40, xp_required: 38000, rank: 'AI Architect', title: 'Master', unlocks: ['Master content'] },
+  { level: 45, xp_required: 60000, rank: 'AI Visionary', title: 'Visionary', unlocks: ['AI Visionary badge'] },
+  { level: 50, xp_required: 100000, rank: 'AI Visionary', title: 'Legend', unlocks: ['Prestige system'] },
+];
+
+// ============================================================================
+// SKILL NODE STATUS TYPE ALIAS
+// ============================================================================
+
+export type SkillNodeStatus = SkillStatus;

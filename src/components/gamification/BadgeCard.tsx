@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import {
   Award, Star, Trophy, Flame, BookOpen, Users, Shield, Target,
   MessageSquare, Sparkles, ClipboardCheck, LayoutGrid, GraduationCap,
-  Crown, Zap, Moon, Sunrise, Swords, Heart, Compass, Hand, Flag, Flask,
+  Crown, Zap, Moon, Sunrise, Swords, Heart, Compass, Hand, Flag, FlaskConical,
   Footprints,
 } from 'lucide-react';
 import type { Badge, UserBadge, BadgeTier, BadgeRarity } from '../../types/gamification';
@@ -36,7 +36,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   compass: Compass,
   'hand-helping': Hand,
   flag: Flag,
-  flask: Flask,
+  flask: FlaskConical,
   footprints: Footprints,
 };
 

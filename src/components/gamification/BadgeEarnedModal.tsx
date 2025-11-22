@@ -8,7 +8,7 @@ import {
   X, Zap, Share2, Star,
   Award, Trophy, Flame, BookOpen, Users, Shield, Target,
   MessageSquare, Sparkles, ClipboardCheck, LayoutGrid, GraduationCap,
-  Crown, Moon, Sunrise, Swords, Heart, Compass, Hand, Flag, Flask, Footprints,
+  Crown, Moon, Sunrise, Swords, Heart, Compass, Hand, Flag, FlaskConical, Footprints,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import type { Badge } from '../../types/gamification';
@@ -38,7 +38,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   compass: Compass,
   'hand-helping': Hand,
   flag: Flag,
-  flask: Flask,
+  flask: FlaskConical,
   footprints: Footprints,
 };
 
